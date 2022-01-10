@@ -13,8 +13,25 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route("/")
 def homepage():
+    search_result = ""
     return render_template("homepage.html")
 
+
+@app.route("/login")
+def login_page():
+    if session.get("user_id"):
+        return redirect("/")
+    return render_template("login.html")
+
+@app.route("/handle-login", methods=["POST"])
+def handle_login():
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    
+
+
+    return redirect("/")
 
 
 
