@@ -5,7 +5,7 @@ from sqlalchemy.orm import backref
 
 db = SQLAlchemy()
 
-class User(db.model):
+class User(db.Model):
     """a user"""
 
     __tablename__='users'
@@ -18,7 +18,7 @@ class User(db.model):
         return f"<User user_id={self.user_id} username={self.username} email={self.email}>"
 
 
-class Comment(db.model):
+class Comment(db.Model):
     """a comment left by a user"""
 
     __tablename__='comments'
@@ -33,7 +33,7 @@ class Comment(db.model):
     def __repr__(self):
         return f"<Comment comment_id={self.comment_id} comment_text={self.comment_text}>"
 
-class Restroom(db.model):
+class Restroom(db.Model):
     """a restroom"""
 
     __tablename__='restrooms'
