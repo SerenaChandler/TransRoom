@@ -20,6 +20,25 @@
     
 }
 
+#container-text{
+    margin-left: 10%;
+    padding-bottom: 10px;
+}
+
+/* #opposite-arrow {
+    transform: rotate(180deg);
+} */
+
+.comment-box{
+    border: black solid 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+
 .navtext {
     margin-right: 10px;
     display: inline;

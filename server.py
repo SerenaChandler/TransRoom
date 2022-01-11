@@ -1,6 +1,6 @@
 """Server for restroom app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import (Flask, render_template, request, flash, jsonify, session, redirect)
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
@@ -112,15 +112,16 @@ def search_handler():
     restroom_scores=[]
     for searched_restroom in searched_restrooms:
         total_score=0
+        averaged_score=0
+        i=1
         for comment in searched_restroom.comments:
             if comment.rating:
                 total_score += int(comment.rating)
-        restroom_scores.append(total_score)
+                i+=1
+        averaged_score = total_score/i
+        final_rating = ("{:.2f}".format(averaged_score))
+        restroom_scores.append(final_rating)
 
-    
-
-
-    
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms, restroom_scores=restroom_scores)
 
 
@@ -137,18 +138,19 @@ def see_comments(restroom_id):
 
 @app.route("/comment/<restroom_id>", methods = ["POST"])
 def add_comment(restroom_id):
-    text = request.form.get("comment_text")
-    rating = request.form.get("rating")
+    print("\n", "*"*20, restroom_id,"\n")
+    text = request.json.get("text")
+    rating = request.json.get("rating")
     restroom = crud.get_restroom_by_id(restroom_id)
-
+    print("\n", "*"*20, restroom,"\n")
     if session.get("user_id"):
         user = crud.get_user_by_id(session["user_id"])
         crud.create_comment(text=text,user=user,restroom=restroom, rating=rating)
         flash("Thank you for leaving a comment!")
-        return redirect("/")
+        return { "success": True, "status": "thank you for commenting!"}
     else:
         flash("Please login before leaving a comment")
-        return redirect("/")
+        return { "success": False, "status": "Try logging in first!"}
 
 
 
@@ -160,5 +162,5 @@ def delete_comment(comment_id):
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
-    connect_to_db(app)
+    connect_to_db(app, echo=False)
     app.run(host="0.0.0.0", debug=True)

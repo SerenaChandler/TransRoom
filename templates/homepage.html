@@ -19,26 +19,40 @@
 
 {% for searched_restroom in searched_restrooms %}
 <div id="restaurant-container">
-    <h2><a href="/restroom/{{searched_restroom.restroom_id}}">{{searched_restroom.restaurant_name}}</a></h2>
-    <h4>{{restroom_scores[loop.index0]}}</h4>
-    <h3> Address:
-        {{searched_restroom.address}}
-    </h3>
-    <h4><a href="https://www.google.com/maps/place/{{searched_restroom.address}}" target="_blank"> click here to see in
-            google maps
-        </a></h4>
-    <form action="comment/{{searched_restroom.restroom_id}}" method="POST">
-        <input type="text" name="comment_text">
-        <input value="add comment" type="submit">
-        <select name="rating">quit
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </form>
-
+    <div id="container-text">
+        <h2><a href="/restroom/{{searched_restroom.restroom_id}}">{{searched_restroom.restaurant_name}}</a></h2>
+        <h4>Rating: {{restroom_scores[loop.index0]}}</h4>
+        <h3> Address:
+            {{searched_restroom.address}}
+        </h3>
+        <h4><a href="https://www.google.com/maps/place/{{searched_restroom.address}}" target="_blank"> click here to see
+                in
+                google maps
+            </a></h4>
+        <form id="comment-form" method="POST">
+            <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
+            <input id="comment_text" type="text" name="comment_text">
+            <input value="add comment" type="submit">
+            <!-- <select name="rating">quit
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select> -->
+            <input class="radio-button" type="radio" name="rating" value="1">
+            <label >1</label>
+            <input class="radio-button" type="radio" name="rating" value="2">
+            <label >2</label>
+            <input class="radio-button" type="radio" name="rating" value="3">
+            <label >3</label>
+            <input class="radio-button" type="radio" name="rating" value="4">
+            <label >4</label>
+            <input class="radio-button" type="radio" name="rating" value="5">
+            <label >5</label>
+        </form>
+        
+    </div>
 </div>
 {% endfor %}
 <!-- {% for restroom in restrooms %}

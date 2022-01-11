@@ -7,12 +7,17 @@
 
 <h1>Your comments will show up here!</h1>
 {% for comment in user.comments %}
+<div class="comment-box">
 <h5>{{comment.restroom.restaurant_name}}</h5>
 <ul>
-    <li>{{comment.comment_text}}</li>
+    <li>{{comment.comment_text}}
+        {{comment.rating}}/5
+    </li>
+
     <form action="/delete/comment/{{comment.comment_id}}">
         <input value="delete comment" type="submit">
     </form>
+</div>
 </ul>
 {% endfor %}
 

@@ -37,7 +37,7 @@ def get_restroom_by_address(address):
     return Restroom.query.filter(Restroom.address == address).first()
 
 def get_all_restrooms_by_city(city):
-    return Restroom.query.filter(Restroom.city == city).all()
+    return Restroom.query.filter(Restroom.city.like(city)).all()
 
 def get_restroom_by_id(restroom_id):
     return Restroom.query.get(restroom_id)
@@ -48,6 +48,7 @@ def create_comment(text, user, restroom, rating):
     comment = Comment(comment_text=text, user=user,restroom=restroom, rating=rating)
     db.session.add(comment)
     db.session.commit()
+    return comment
 
 
 def delete_comment(comment_id):

@@ -7,9 +7,11 @@
 
 <h1>current comments for {{restroom.restaurant_name}}</h1>
 {% for comment in restroom.comments %}
+<div class="comment-box">
 <ul>
-    <li>{{comment.comment_text}}</li>
+    <h3>{{comment.comment_text}}</h3>
 </ul>
+</div>
 {% endfor %}
 
 {% endblock %}
