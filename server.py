@@ -80,8 +80,7 @@ def search_handler():
     print(query)
     res = requests.get(query)
     restrooms = res.json()
-    print(restrooms)
-    
+    print(restrooms)    
 
     for restroom in restrooms:
         current_restroom = crud.get_restroom_by_address(restroom["street"])
@@ -92,6 +91,11 @@ def search_handler():
     print(searched_restrooms)
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms)
 
+@app.route("/comment/<restroom_id>", methods = ["POST"])
+def add_comment(restroom_id):
+    text = request.form.get("comment_text")
+    restroom = crud.get_restroom_by_id(restroom_id)
+    user = crud.get_user_by_id(session["user_id"])
 
 
 if __name__ == "__main__":

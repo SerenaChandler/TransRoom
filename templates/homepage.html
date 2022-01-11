@@ -13,12 +13,16 @@
         Search: <input id="search-text" type="text" name="search">
     </p>
     
-    <p> <input id="search-button" type="submit"></p>
+    <p> <input value="Find a restroom!" id="search-button" type="submit"></p>
 
 </form>
 
 {% for searched_restroom in searched_restrooms %}
 <h2>{{searched_restroom.restaurant_name}}</h2>
+<form action="comment/{{searched_restroom.restroom_id}}" method="POST">
+    <input type="text" name="comment_text">
+    <input type="submit">
+</form>
 {% endfor %}
 {% for restroom in restrooms %}
     <div id="restaurant-container">
@@ -40,6 +44,8 @@
         <h4><a href="https://www.google.com/maps/place/{{restroom.street}}" target="_blank"> click here to see in google maps
         </a></h4>
     </div>
+   
+
 {% endfor %}
 
 {% endblock %}

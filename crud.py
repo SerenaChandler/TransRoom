@@ -38,3 +38,11 @@ def get_restroom_by_address(address):
 
 def get_all_restrooms_by_city(city):
     return Restroom.query.filter(Restroom.city == city).all()
+
+def get_restroom_by_id(restroom_id):
+    return Restroom.query.get(restroom_id)
+
+
+
+def create_comment(text, user, restroom):
+    comment = Comment(comment_text=text, user=user,restroom=restroom)
