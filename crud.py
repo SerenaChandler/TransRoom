@@ -48,3 +48,10 @@ def create_comment(text, user, restroom):
     comment = Comment(comment_text=text, user=user,restroom=restroom)
     db.session.add(comment)
     db.session.commit()
+
+
+def delete_comment(comment_id):
+    deleted_comment = Comment.query.filter(Comment.comment_id == comment_id).first()
+    db.session.delete(deleted_comment)
+    db.session.commit()
+     

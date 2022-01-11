@@ -112,6 +112,12 @@ def add_comment(restroom_id):
         flash("Please login before leaving a comment")
         return redirect("/")
 
+@app.route("/delete/comment/<comment_id>")
+def delete_comment(comment_id):
+    crud.delete_comment(comment_id)
+    return redirect("/user")
+
+
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app)
