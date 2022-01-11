@@ -7,6 +7,7 @@
 
 <h1>Your comments will show up here!</h1>
 {% for comment in user.comments %}
+<h5>{{comment.restroom.restaurant_name}}</h5>
 <ul>
     <li>{{comment.comment_text}}</li>
 </ul>

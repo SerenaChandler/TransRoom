@@ -38,12 +38,11 @@ def logout():
 def create_user():
     email = request.form.get("email")
     password = request.form.get("password")
-    username = request.form.get("username")
     user = crud.get_user_by_email(email)
     if user:
         flash("That email is already associated with an account.")
     else:
-        crud.create_user(email, password, username)
+        crud.create_user(email, password)
         flash("Account created!")
     
     return redirect("/login")

@@ -5,8 +5,8 @@ from model import db, User, Comment, Restroom, connect_to_db
 
 
 
-def create_user(email, password, username):
-    user = User(email=email, password=password, username=username)
+def create_user(email, password):
+    user = User(email=email, password=password)
     db.session.add(user)
     db.session.commit()
     
