@@ -109,8 +109,19 @@ def search_handler():
             crud.create_restroom(restroom['name'],restroom['street'],restroom['city'].lower())
 
     searched_restrooms = crud.get_all_restrooms_by_city(search)
-    print(searched_restrooms)
-    return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms)
+    restroom_scores=[]
+    for searched_restroom in searched_restrooms:
+        total_score=0
+        for comment in searched_restroom.comments:
+            if comment.rating:
+                total_score += int(comment.rating)
+        restroom_scores.append(total_score)
+
+    
+
+
+    
+    return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms, restroom_scores=restroom_scores)
 
 
 
@@ -127,17 +138,17 @@ def see_comments(restroom_id):
 @app.route("/comment/<restroom_id>", methods = ["POST"])
 def add_comment(restroom_id):
     text = request.form.get("comment_text")
+    rating = request.form.get("rating")
     restroom = crud.get_restroom_by_id(restroom_id)
 
     if session.get("user_id"):
         user = crud.get_user_by_id(session["user_id"])
-        crud.create_comment(text=text,user=user,restroom=restroom)
+        crud.create_comment(text=text,user=user,restroom=restroom, rating=rating)
         flash("Thank you for leaving a comment!")
         return redirect("/")
     else:
         flash("Please login before leaving a comment")
         return redirect("/")
-
 
 
 

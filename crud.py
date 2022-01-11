@@ -44,8 +44,8 @@ def get_restroom_by_id(restroom_id):
 
 
 
-def create_comment(text, user, restroom):
-    comment = Comment(comment_text=text, user=user,restroom=restroom)
+def create_comment(text, user, restroom, rating):
+    comment = Comment(comment_text=text, user=user,restroom=restroom, rating=rating)
     db.session.add(comment)
     db.session.commit()
 

@@ -25,12 +25,13 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     restroom_id = db.Column(db.Integer, db.ForeignKey("restrooms.restroom_id"))
     comment_text = db.Column(db.String(), nullable=False)
+    rating = db.Column(db.Integer)
 
     user = db.relationship("User", backref="comments")
     restroom = db.relationship("Restroom", backref="comments")
 
     def __repr__(self):
-        return f"<Comment comment_id={self.comment_id} comment_text={self.comment_text}>"
+        return f"<Comment comment_id={self.comment_id} comment_text={self.comment_text} rating={self.rating}>"
 
 class Restroom(db.Model):
     """a restroom"""
