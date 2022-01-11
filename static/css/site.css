@@ -3,3 +3,16 @@
     margin-bottom: 10px;
     
 }
+
+#navbar{
+    background-color: rgb(198, 246, 255);
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+body{
+    background-color: rgb(255, 238, 251);
+}

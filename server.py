@@ -21,10 +21,11 @@ def homepage():
 @app.route("/login")
 def login_page():
     if session.get("user_id"):
-        return redirect("/")
-    sess = session.get("user_id")   
-    return render_template("login.html", sess=sess)
-
+        flash("You're already logged in")
+    else:
+        sess = session.get("user_id")   
+        return render_template("login.html", sess=sess)
+    return redirect("/")
 
 @app.route("/logout")
 def logout():
