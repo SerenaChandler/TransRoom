@@ -66,7 +66,8 @@ def handle_login():
 def to_user_profile():
     
     if session.get("user_id"):
-        return render_template("user.html")
+        user = crud.get_user_by_id(session["user_id"])
+        return render_template("user.html", user=user)
     else:
         flash("Login to see your user page")
         return redirect("/")
@@ -95,8 +96,15 @@ def search_handler():
 def add_comment(restroom_id):
     text = request.form.get("comment_text")
     restroom = crud.get_restroom_by_id(restroom_id)
-    user = crud.get_user_by_id(session["user_id"])
 
+    if session.get("user_id"):
+        user = crud.get_user_by_id(session["user_id"])
+        crud.create_comment(text=text,user=user,restroom=restroom)
+        flash("Thank you for leaving a comment!")
+        return redirect("/")
+    else:
+        flash("Please login before leaving a comment")
+        return redirect("/")
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

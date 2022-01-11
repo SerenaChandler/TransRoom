@@ -5,6 +5,11 @@
 
 {% block body %}
 
-
+<h1>Your comments will show up here!</h1>
+{% for comment in user.comments %}
+<ul>
+    <li>{{comment.comment_text}}</li>
+</ul>
+{% endfor %}
 
 {% endblock %}
