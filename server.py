@@ -92,6 +92,12 @@ def search_handler():
     print(searched_restrooms)
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms)
 
+
+@app.route("/restroom/<restroom_id>")
+def see_comments(restroom_id):
+    restroom = crud.get_restroom_by_id(restroom_id)
+    return render_template("restroom-comments.html", restroom=restroom)
+
 @app.route("/comment/<restroom_id>", methods = ["POST"])
 def add_comment(restroom_id):
     text = request.form.get("comment_text")
