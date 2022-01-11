@@ -15,7 +15,7 @@ app.jinja_env.undefined = StrictUndefined
 @app.route("/")
 def homepage():
     restrooms = ""
-    return render_template("homepage.html", restrooms=restrooms)
+    return render_template("homepage.html", restrooms=restrooms, searched_restrooms=restrooms)
 
 
 @app.route("/login")
@@ -66,16 +66,22 @@ def handle_login():
 @app.route("/handle-search")
 def search_handler():
     APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=10&offset=0&query="
-    search = request.args.get("search")
+    search = request.args.get("search").lower()
     query = APIURL + search
     print(query)
     res = requests.get(query)
     restrooms = res.json()
     print(restrooms)
+    
 
+    for restroom in restrooms:
+        current_restroom = crud.get_restroom_by_address(restroom["street"])
+        if not current_restroom:
+            crud.create_restroom(restroom['name'],restroom['street'],restroom['city'].lower())
 
-
-    return render_template("homepage.html", restrooms=restrooms)
+    searched_restrooms = crud.get_all_restrooms_by_city(search)
+    print(searched_restrooms)
+    return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms)
 
 
 

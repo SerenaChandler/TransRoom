@@ -1,7 +1,9 @@
 #restaurant-container {
     border: black solid 5px;
     margin-bottom: 10px;
-    
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #navbar{
@@ -19,8 +21,10 @@
 
 .navtext {
     margin-right: 10px;
+    display: inline;
 }
 
 body{
    margin: 0;
+   text-align: center;
 }

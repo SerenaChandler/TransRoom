@@ -40,6 +40,7 @@ class Restroom(db.Model):
     restroom_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     restaurant_name = db.Column(db.String(), nullable=False)
     address = db.Column(db.String(), nullable=False, unique=True)
+    city = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
         return f"<Restroom restroom_id={self.restroom_id} address={self.address} restaurant_name={self.restaurant_name}>"

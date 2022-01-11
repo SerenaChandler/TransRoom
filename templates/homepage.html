@@ -16,16 +16,20 @@
     <p> <input id="search-button" type="submit"></p>
 
 </form>
+
+{% for searched_restroom in searched_restrooms %}
+<h2>{{searched_restroom.restaurant_name}}</h2>
+{% endfor %}
 {% for restroom in restrooms %}
     <div id="restaurant-container">
-        <h2>Restaurant Name
-            {{restroom.name}}
+        <h2>Restaurant Name:
+            {{restroom.name}} 
         </h2>
-        <h3> Address
+        <h3> Address:
             {{restroom.street}}
         </h3>
         <h3>
-            ADA accecible
+            ADA accecible:
             {% if restroom.accessible == True %}
             Yes
             {% endif %}
@@ -33,6 +37,8 @@
             No
             {% endif %}
         </h3>
+        <h4><a href="https://www.google.com/maps/place/{{restroom.street}}" target="_blank"> click here to see in google maps
+        </a></h4>
     </div>
 {% endfor %}
 

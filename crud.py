@@ -24,3 +24,17 @@ def get_user_by_id(user_id):
 
 def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
+
+
+def create_restroom(name, address, city):
+    restroom = Restroom(restaurant_name=name, address=address,city=city)
+    db.session.add(restroom)
+    db.session.commit()
+
+    return restroom
+
+def get_restroom_by_address(address):
+    return Restroom.query.filter(Restroom.address == address).first()
+
+def get_all_restrooms_by_city(city):
+    return Restroom.query.filter(Restroom.city == city).all()
