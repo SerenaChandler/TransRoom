@@ -59,13 +59,22 @@ def handle_login():
             flash("Logged in!")
             return redirect("/")
     else:
-        flash("Invalid login credentials.")
+        flash("Incorrect password or email. Please try again")
     return redirect("/login")
+
+@app.route("/user")
+def to_user_profile():
+    
+    if session.get("user_id"):
+        return render_template("user.html")
+    else:
+        flash("Login to see your user page")
+        return redirect("/")
 
 
 @app.route("/handle-search")
 def search_handler():
-    APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=10&offset=0&query="
+    APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=20&offset=0&query="
     search = request.args.get("search").lower()
     query = APIURL + search
     print(query)
