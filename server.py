@@ -31,6 +31,7 @@ def login_page():
 def logout():
     if session.get("user_id"):
         session.clear()
+        flash("successfully logged out.")
     return redirect("/")
 
 @app.route("/create-user", methods=["POST"])
