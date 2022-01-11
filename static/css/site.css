@@ -5,14 +5,22 @@
 }
 
 #navbar{
-    background-color: rgb(198, 246, 255);
-    height: 50px;
     display: flex;
     justify-content: space-between;
     
 }
+.header{
+    background-color: rgb(255, 240, 255);
+    box-sizing: border-box;
+    width: 100%;
+    padding: 30px;
+    
+}
 
+.navtext {
+    margin-right: 10px;
+}
 
 body{
-    background-color: rgb(255, 238, 251);
+   margin: 0;
 }
