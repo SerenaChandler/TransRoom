@@ -18,6 +18,10 @@ def homepage():
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=restrooms)
 
 
+
+
+
+
 @app.route("/login")
 def login_page():
     if session.get("user_id"):
@@ -27,12 +31,21 @@ def login_page():
         return render_template("login.html", sess=sess)
     return redirect("/")
 
+
+
+
+
+
 @app.route("/logout")
 def logout():
     if session.get("user_id"):
         session.clear()
         flash("successfully logged out.")
     return redirect("/")
+
+
+
+
 
 @app.route("/create-user", methods=["POST"])
 def create_user():
@@ -46,6 +59,9 @@ def create_user():
         flash("Account created!")
     
     return redirect("/login")
+
+
+
 
 
 @app.route("/handle-login", methods=["POST"])
@@ -62,6 +78,9 @@ def handle_login():
         flash("Incorrect password or email. Please try again")
     return redirect("/login")
 
+
+
+
 @app.route("/user")
 def to_user_profile():
     
@@ -73,15 +92,16 @@ def to_user_profile():
         return redirect("/")
 
 
+
+
+
 @app.route("/handle-search")
 def search_handler():
     APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=20&offset=0&query="
     search = request.args.get("search").lower()
     query = APIURL + search
-    print(query)
     res = requests.get(query)
-    restrooms = res.json()
-    print(restrooms)    
+    restrooms = res.json()  
 
     for restroom in restrooms:
         current_restroom = crud.get_restroom_by_address(restroom["street"])
@@ -93,10 +113,16 @@ def search_handler():
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms)
 
 
+
+
+
 @app.route("/restroom/<restroom_id>")
 def see_comments(restroom_id):
     restroom = crud.get_restroom_by_id(restroom_id)
     return render_template("restroom-comments.html", restroom=restroom)
+
+
+
 
 @app.route("/comment/<restroom_id>", methods = ["POST"])
 def add_comment(restroom_id):
@@ -111,6 +137,9 @@ def add_comment(restroom_id):
     else:
         flash("Please login before leaving a comment")
         return redirect("/")
+
+
+
 
 @app.route("/delete/comment/<comment_id>")
 def delete_comment(comment_id):
