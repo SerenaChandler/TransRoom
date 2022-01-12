@@ -29,6 +29,7 @@
                 in
                 google maps
             </a></h4>
+        {% if user %}
         <form id="comment-form" method="POST">
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
             <input id="comment_text" type="text" name="comment_text">
@@ -41,6 +42,7 @@
                 <option value="5">5</option>
             </select>
         </form>
+        {% endif %}
         
     </div>
 </div>

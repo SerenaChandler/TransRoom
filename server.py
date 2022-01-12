@@ -99,6 +99,9 @@ def search_handler():
     search = request.args.get("search").lower()
     query = APIURL + search
     restrooms = ""
+    user = None
+    if session.get("user_id"):
+        user = crud.get_user_by_id(session["user_id"])
 
     if crud.get_restroom_by_city(search):
         searched_restrooms = crud.get_all_restrooms_by_city(search)
@@ -138,7 +141,7 @@ def search_handler():
             final_rating = ("{:.1f}".format(averaged_score))
             restroom_scores.append(final_rating)
 
-    return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms, restroom_scores=restroom_scores)
+    return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms,user=user, restroom_scores=restroom_scores)
 
 
 
