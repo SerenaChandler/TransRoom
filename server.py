@@ -113,7 +113,7 @@ def search_handler():
     for searched_restroom in searched_restrooms:
         total_score=0
         averaged_score=0
-        i=1
+        i=0.00000000000000000001
         for comment in searched_restroom.comments:
             if comment.rating:
                 total_score += int(comment.rating)
@@ -147,10 +147,10 @@ def add_comment(restroom_id):
         user = crud.get_user_by_id(session["user_id"])
         crud.create_comment(text=text,user=user,restroom=restroom, rating=rating)
         flash("Thank you for leaving a comment!")
-        return { "success": True, "status": "thank you for commenting!"}
+        return redirect("/")
     else:
         flash("Please login before leaving a comment")
-        return { "success": False, "status": "Try logging in first!"}
+        return redirect("/")
 
 
 
