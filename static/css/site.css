@@ -5,6 +5,7 @@
     text-align: left;
     margin-left: 10px;
     margin-right: 10px;
+    background-color: rgb(220, 250, 255);
 }
 
 #navbar{
@@ -25,9 +26,6 @@
     padding-bottom: 10px;
 }
 
-/* #opposite-arrow {
-    transform: rotate(180deg);
-} */
 
 .comment-box{
     border: black solid 5px;
@@ -37,6 +35,7 @@
     margin-left: 10px;
     margin-right: 10px;
     text-align: center;
+    background-color: rgb(220, 250, 255);
 }
 
 .navtext {

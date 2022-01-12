@@ -107,13 +107,18 @@ def add_restroom():
 
     if crud.get_restroom_by_address(street):
         flash("This restroom is already in the database")
+    elif not street or not name or not city:
+        flash("Must enter address/city/name of business") 
+
     else:
         if ADA:
             ADA=True
             crud.create_restroom(name, street, city, ADA)
+            flash("Added restroom!")
         else:
             ADA=False
             crud.create_restroom(name, street, city, ADA)
+            flash("Added restroom!")
 
 
  
