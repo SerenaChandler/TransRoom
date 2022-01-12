@@ -105,6 +105,17 @@ def add_restroom():
     city = request.form.get("city")
     ADA = request.form.get("ada")
 
+    if crud.get_restroom_by_address(street):
+        flash("This restroom is already in the database")
+    else:
+        if ADA:
+            ADA=True
+            crud.create_restroom(name, street, city, ADA)
+        else:
+            ADA=False
+            crud.create_restroom(name, street, city, ADA)
+
+
  
     return redirect("/add")
 
