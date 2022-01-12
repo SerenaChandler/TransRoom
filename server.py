@@ -198,15 +198,25 @@ def see_comments(restroom_id):
 
 @app.route("/comment/<restroom_id>", methods = ["POST"])
 def add_comment(restroom_id):
-    print("\n", "*"*20, restroom_id,"\n")
+    # print("\n", "*"*20, restroom_id,"\n")
     text = request.json.get("text")
     rating = request.json.get("rating")
     restroom = crud.get_restroom_by_id(restroom_id)
-    print("\n", "*"*20, restroom,"\n")
+    print("\n", "*"*40, restroom,"\n")
     if session.get("user_id"):
         user = crud.get_user_by_id(session["user_id"])
         crud.create_comment(text=text,user=user,restroom=restroom, rating=rating)
-        return jsonify({'success': True, "status": "thank you for your comment"})
+        total_score=0
+        averaged_score=0
+        i=0.00000000000000000001
+        for comment in restroom.comments:
+            if comment.rating:
+                    total_score += int(comment.rating)
+                    i+=1
+            averaged_score = total_score/i
+            new_rating = ("{:.1f}".format(averaged_score))
+
+        return jsonify({'success': True, "status": "thank you for your comment", "rating": new_rating, "restroom_id": restroom_id })
     else:
         return jsonify({'success': False, "status": "must be logged in to leave comment"})
 
