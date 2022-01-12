@@ -91,6 +91,23 @@ def to_user_profile():
         flash("Login to see your user page")
         return redirect("/")
 
+@app.route("/add")
+def to_add_page():
+    return render_template("add-restroom.html")
+
+
+
+@app.route("/add-restroom", methods=["POST"])
+def add_restroom():
+
+    street = request.form.get("address")
+    name = request.form.get("name")
+    city = request.form.get("city")
+    ADA = request.form.get("ada")
+
+ 
+    return redirect("/add")
+
 
 
 @app.route("/handle-search")
@@ -173,10 +190,8 @@ def add_comment(restroom_id):
     if session.get("user_id"):
         user = crud.get_user_by_id(session["user_id"])
         crud.create_comment(text=text,user=user,restroom=restroom, rating=rating)
-        flash("Thank you for leaving a comment!")
         return jsonify({'success': True, "status": "thank you for your comment"})
     else:
-        flash("Please login before leaving a comment")
         return jsonify({'success': False, "status": "must be logged in to leave comment"})
 
 

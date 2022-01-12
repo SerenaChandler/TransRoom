@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+
+{% block body %}
+
+<form action="/add-restroom" method="POST">
+<div>
+<h2>Street Address</h2>
+<input type="text" name="address">
+
+<h2>Name of Business</h2>
+<input type="text" name="name">
+
+<h2>City name</h2>
+<input type="text" name="city">
+
+<h2>ADA accessible</h2>
+<input type="checkbox" name="ada" value=True>
+<label>accessible</label>
+
+<h2></h2>
+<input value="Add Restroom" type="submit">
+</form>
+
+
+</div>
+
+
+{% endblock %}
