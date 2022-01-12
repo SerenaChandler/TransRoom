@@ -19,10 +19,11 @@ function leave_comment(evt){
             'Content-Type': 'application/json',
           },
     }).then(res => res.json())
-    .then(resj => console.log("comment submitted"), alert("comment submitted"));
+    .then(resj => console.log("comment submitted"));
 }else {
     alert("please enter a comment before submitting rating")
 }
+
 }
 
 for (button of commentButtons){

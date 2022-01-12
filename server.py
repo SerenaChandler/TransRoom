@@ -93,11 +93,9 @@ def to_user_profile():
 
 
 
-
-
 @app.route("/handle-search")
 def search_handler():
-    APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=20&offset=0&query="
+    APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=30&offset=0&query="
     search = request.args.get("search").lower()
     query = APIURL + search
     restrooms = ""
@@ -114,7 +112,7 @@ def search_handler():
                     total_score += int(comment.rating)
                     i+=1
             averaged_score = total_score/i
-            final_rating = ("{:.2f}".format(averaged_score))
+            final_rating = ("{:.1f}".format(averaged_score))
             restroom_scores.append(final_rating)
 
     else:
@@ -137,7 +135,7 @@ def search_handler():
                     total_score += int(comment.rating)
                     i+=1
             averaged_score = total_score/i
-            final_rating = ("{:.2f}".format(averaged_score))
+            final_rating = ("{:.1f}".format(averaged_score))
             restroom_scores.append(final_rating)
 
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms, restroom_scores=restroom_scores)
