@@ -39,6 +39,9 @@ def get_restroom_by_address(address):
 def get_all_restrooms_by_city(city):
     return Restroom.query.filter(Restroom.city.like(city)).all()
 
+def get_restroom_by_city(city):
+    return Restroom.query.filter(Restroom.city.like(city)).first()
+
 def get_restroom_by_id(restroom_id):
     return Restroom.query.get(restroom_id)
 

@@ -100,27 +100,45 @@ def search_handler():
     APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=20&offset=0&query="
     search = request.args.get("search").lower()
     query = APIURL + search
-    res = requests.get(query)
-    restrooms = res.json()  
+    restrooms = ""
 
-    for restroom in restrooms:
-        current_restroom = crud.get_restroom_by_address(restroom["street"])
-        if not current_restroom:
-            crud.create_restroom(restroom['name'],restroom['street'],restroom['city'].lower())
+    if crud.get_restroom_by_city(search):
+        searched_restrooms = crud.get_all_restrooms_by_city(search)
+        restroom_scores=[]
+        for searched_restroom in searched_restrooms:
+            total_score=0
+            averaged_score=0
+            i=0.00000000000000000001
+            for comment in searched_restroom.comments:
+                if comment.rating:
+                    total_score += int(comment.rating)
+                    i+=1
+            averaged_score = total_score/i
+            final_rating = ("{:.2f}".format(averaged_score))
+            restroom_scores.append(final_rating)
 
-    searched_restrooms = crud.get_all_restrooms_by_city(search)
-    restroom_scores=[]
-    for searched_restroom in searched_restrooms:
-        total_score=0
-        averaged_score=0
-        i=0.00000000000000000001
-        for comment in searched_restroom.comments:
-            if comment.rating:
-                total_score += int(comment.rating)
-                i+=1
-        averaged_score = total_score/i
-        final_rating = ("{:.2f}".format(averaged_score))
-        restroom_scores.append(final_rating)
+    else:
+        res = requests.get(query)
+        restrooms = res.json()  
+
+        for restroom in restrooms:
+            current_restroom = crud.get_restroom_by_address(restroom["street"])
+            if not current_restroom:
+                crud.create_restroom(restroom['name'],restroom['street'],restroom['city'].lower())
+
+        searched_restrooms = crud.get_all_restrooms_by_city(search)
+        restroom_scores=[]
+        for searched_restroom in searched_restrooms:
+            total_score=0
+            averaged_score=0
+            i=0.00000000000000000001
+            for comment in searched_restroom.comments:
+                if comment.rating:
+                    total_score += int(comment.rating)
+                    i+=1
+            averaged_score = total_score/i
+            final_rating = ("{:.2f}".format(averaged_score))
+            restroom_scores.append(final_rating)
 
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms, restroom_scores=restroom_scores)
 
