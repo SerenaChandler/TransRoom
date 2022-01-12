@@ -26,8 +26,8 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-def create_restroom(name, address, city):
-    restroom = Restroom(restaurant_name=name, address=address,city=city)
+def create_restroom(name, address, city, ada):
+    restroom = Restroom(restaurant_name=name, address=address,city=city, ADA=ada)
     db.session.add(restroom)
     db.session.commit()
 
@@ -38,6 +38,11 @@ def get_restroom_by_address(address):
 
 def get_all_restrooms_by_city(city):
     return Restroom.query.filter(Restroom.city.like(city)).all()
+
+
+def get_all_accessible_restrooms_by_city(city):
+    return Restroom.query.filter(Restroom.city.like(city), Restroom.ADA == True).all()
+
 
 def get_restroom_by_city(city):
     return Restroom.query.filter(Restroom.city.like(city)).first()

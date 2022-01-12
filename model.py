@@ -41,9 +41,11 @@ class Restroom(db.Model):
     restaurant_name = db.Column(db.String(), nullable=False)
     address = db.Column(db.String(), nullable=False, unique=True)
     city = db.Column(db.String(), nullable=False)
+    ADA = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
-        return f"<Restroom restroom_id={self.restroom_id} address={self.address} restaurant_name={self.restaurant_name}>"
+        return f"""<Restroom restroom_id={self.restroom_id} 
+        address={self.address} restaurant_name={self.restaurant_name} ADA={self.ADA}>"""
 
 
 

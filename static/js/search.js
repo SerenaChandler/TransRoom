@@ -19,7 +19,15 @@ function leave_comment(evt){
             'Content-Type': 'application/json',
           },
     }).then(res => res.json())
-    .then(resj => console.log("comment submitted"));
+    .then(resj => {
+        if(resj.success == true){
+            document.querySelector("#comment-success").innerHTML=resj.status
+        }else {
+            document.querySelector("#comment-success").innerHTML=resj.status
+        }
+
+
+    });
 }else {
     alert("please enter a comment before submitting rating")
 }

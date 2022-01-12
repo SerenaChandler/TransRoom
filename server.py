@@ -97,6 +97,8 @@ def to_user_profile():
 def search_handler():
     APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=30&offset=0&query="
     search = request.args.get("search").lower()
+    ADA = request.args.get("ada")
+    print("\n", "*"*20, ADA,"\n")
     query = APIURL + search
     restrooms = ""
     user = None
@@ -104,7 +106,10 @@ def search_handler():
         user = crud.get_user_by_id(session["user_id"])
 
     if crud.get_restroom_by_city(search):
-        searched_restrooms = crud.get_all_restrooms_by_city(search)
+        if ADA == "True":
+            searched_restrooms = crud.get_all_accessible_restrooms_by_city(search)
+        else:
+            searched_restrooms = crud.get_all_restrooms_by_city(search)
         restroom_scores=[]
         for searched_restroom in searched_restrooms:
             total_score=0
@@ -125,9 +130,12 @@ def search_handler():
         for restroom in restrooms:
             current_restroom = crud.get_restroom_by_address(restroom["street"])
             if not current_restroom:
-                crud.create_restroom(restroom['name'],restroom['street'],restroom['city'].lower())
+                crud.create_restroom(restroom['name'],restroom['street'],restroom['city'].lower(),restroom['accessible'])
 
-        searched_restrooms = crud.get_all_restrooms_by_city(search)
+        if ADA == "True":
+            searched_restrooms = crud.get_all_accessible_restrooms_by_city(search)
+        else:
+            searched_restrooms = crud.get_all_restrooms_by_city(search)
         restroom_scores=[]
         for searched_restroom in searched_restrooms:
             total_score=0
@@ -166,10 +174,10 @@ def add_comment(restroom_id):
         user = crud.get_user_by_id(session["user_id"])
         crud.create_comment(text=text,user=user,restroom=restroom, rating=rating)
         flash("Thank you for leaving a comment!")
-        return redirect("/")
+        return jsonify({'success': True, "status": "thank you for your comment"})
     else:
         flash("Please login before leaving a comment")
-        return redirect("/")
+        return jsonify({'success': False, "status": "must be logged in to leave comment"})
 
 
 
