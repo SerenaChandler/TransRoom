@@ -50,8 +50,8 @@
         <form class="comment-form" id="comment-form-id{{searched_restroom.restroom_id}}" method="POST">
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
             <input id="comment_text" type="text" name="comment_text">
-            <input value="add comment" type="submit">
-            <select name="rating" id="">
+            <input id="add-comment" value="add comment" type="submit">
+            <select name="rating" id="rating-button">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -60,11 +60,13 @@
             </select>
         </form>
         {% endif %}
-        <a href="/restroom/{{searched_restroom.restroom_id}}">
+
+        <a id="comment-link" href="/restroom/{{searched_restroom.restroom_id}}">
             <div id="comments-button">
                 <h3>Past Comments</h3>
             </div>
         </a>
+
     </div>
 </div>
 {% endfor %}
