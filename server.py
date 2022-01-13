@@ -100,9 +100,9 @@ def to_add_page():
 @app.route("/add-restroom", methods=["POST"])
 def add_restroom():
 
-    street = request.form.get("address")
-    name = request.form.get("name")
-    city = request.form.get("city")
+    street = request.form.get("address").strip()
+    name = request.form.get("name").strip()
+    city = request.form.get("city").strip()
     ADA = request.form.get("ada")
 
     if crud.get_restroom_by_address(street):
