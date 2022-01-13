@@ -6,6 +6,7 @@
 {% block body %}
 
 <h1>current comments for {{restroom.restaurant_name}}</h1>
+
 {% for comment in restroom.comments %}
 <div class="comment-box">
     <ul>
@@ -13,5 +14,4 @@
     </ul>
 </div>
 {% endfor %}
-
 {% endblock %}
