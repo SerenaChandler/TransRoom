@@ -6,6 +6,7 @@ import crud
 from jinja2 import StrictUndefined
 import requests
 from authlib.integrations.flask_client import OAuth
+import os
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -14,16 +15,14 @@ app.jinja_env.undefined = StrictUndefined
 oauth = OAuth(app)
 google = oauth.register(
 name="google",
-client_id='',
-client_secret='',
+client_id="535415915919-hbmr4bug2qfob84lp7dqt56n9u0o7fpe.apps.googleusercontent.com",
+client_secret=os.environ["CLIENT_SECRET"],
 access_token_url='https://accounts.google.com/o/oauth2/token',
 access_token_params=None,
 authorize_url='https://accounts.google.com/o/oauth2/auth',
 authorize_params=None,
 api_base_url='https://www.googleapis.com/oauth2/v1/',
 client_kwargs={'scope': 'openid profile email'}
-
-
 )
 
 
@@ -31,10 +30,6 @@ client_kwargs={'scope': 'openid profile email'}
 def homepage():
     restrooms = ""
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=restrooms)
-
-
-
-
 
 
 @app.route("/login")
@@ -60,8 +55,15 @@ def authorize():
     resp = google.get('userinfo')
     resp.raise_for_status()
     profile = resp.json()
+    print("\n", "*"*20, profile,"\n")
     # do something with the token and profile
-    session['email'] = profile['email']
+    if crud.get_user_by_email(profile['email']):
+        user = crud.get_user_by_email(profile['email'])
+        session["user_id"] = user.user_id
+    else:
+        crud.create_user(profile['email'], profile['id'])
+        user = crud.get_user_by_email(profile['email'])
+        session["user_id"] = user.user_id
     return redirect('/')
 
 
@@ -77,7 +79,6 @@ def logout():
     else:
         flash("Already logged out")
     return redirect("/")
-
 
 
 
