@@ -41,6 +41,8 @@ def logout():
     if session.get("user_id"):
         session.clear()
         flash("successfully logged out.")
+    else:
+        flash("Already logged out")
     return redirect("/")
 
 
@@ -155,6 +157,7 @@ def search_handler():
             averaged_score = total_score/i
             final_rating = ("{:.1f}".format(averaged_score))
             restroom_scores.append(final_rating)
+            
 
     else:
         res = requests.get(query)
@@ -180,8 +183,8 @@ def search_handler():
                     i+=1
             averaged_score = total_score/i
             final_rating = ("{:.1f}".format(averaged_score))
-            restroom_scores.append(final_rating)
-
+            restroom_scores.append(int(final_rating))
+            
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms,user=user, restroom_scores=restroom_scores)
 
 

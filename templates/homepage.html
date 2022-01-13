@@ -24,8 +24,21 @@
     <div id="container-text">
         <h2 style="display: inline;"><a
                 href="/restroom/{{searched_restroom.restroom_id}}">{{searched_restroom.restaurant_name}}</a></h2>
+
+
+        {% if restroom_scores[loop.index0] == '0.0' %}
+
+        <h4 id="rating{{searched_restroom.restroom_id}}" style="display: inline;">Rating:
+            Not yet rated</h4>
+
+        {% endif %}
+
+        {% if restroom_scores[loop.index0] != '0.0' %}
         <h4 id="rating{{searched_restroom.restroom_id}}" style="display: inline;">Rating:
             {{restroom_scores[loop.index0]}}/5</h4>
+
+
+        {% endif %}
         <h3>ADA Accessible:{{searched_restroom.ADA}}</h3>
         <h3> Address:
             {{searched_restroom.address}}
