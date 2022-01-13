@@ -22,7 +22,8 @@ function leave_comment(evt) {
       .then((resj) => {
         if (resj.success == true) {
           document.querySelector("#comment-success").innerHTML = resj.status;
-          document.querySelector(`#rating${resj.restroom_id}`).innerHTML = `${resj.rating}/5`
+          document.querySelector(`#rating${resj.restroom_id}`).innerHTML = `${resj.rating}/5`;
+          alert("comment submitted")
         } else {
           document.querySelector("#comment-success").innerHTML = resj.status;
         }

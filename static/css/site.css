@@ -29,6 +29,26 @@
     padding-bottom: 10px;
 }
 
+#comments-button {
+    border-radius: 5px;
+    border: solid black 2px;
+    width: 25%;
+    margin-top: 10px;
+    text-align: center;
+    background-color:  rgb(255, 240, 255);
+}
+
+#comments-button:hover {
+    cursor: pointer;
+    background-color: rgb(255, 223, 255);
+}
+
+#comments-button:active {
+    cursor: pointer;
+    background-color: rgb(255, 203, 255);
+}
+
+
 
 .comment-box{
     border: black solid 5px;
