@@ -54,7 +54,7 @@ function showComments(evt) {
     fetch(`/restroom/${restroom_id}`)
       .then((res) => res.json())
       .then((comments) => {
-        if (Object.keys(comments).length < 1) {
+        if (Object.keys(comments['comments']).length < 1) {
           commentList.insertAdjacentHTML(
             "beforeend",
             `<h4 class="comments">No Comments Yet</h4>`
