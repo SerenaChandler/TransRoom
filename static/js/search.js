@@ -24,13 +24,16 @@ function leave_comment(evt) {
     })
       .then((res) => res.json())
       .then((resj) => {
-        if (resj.success == true) {
+        
+        if (document.querySelector(`#comment-list${restroom_id}`).innerHTML != "") {
+          showComments(evt)
+        }
           document.querySelector("#comment-success").innerHTML = resj.status;
           document.querySelector(`#rating${resj.restroom_id}`).innerHTML = `${resj.rating}/5`;
-          alert("comment submitted")
-        } else {
-          document.querySelector("#comment-success").innerHTML = resj.status;
-        }
+        
+         
+     
+     
       });
   } else {
     alert("please enter a comment before submitting rating");
@@ -39,13 +42,18 @@ function leave_comment(evt) {
 
 function showComments(evt) {
   evt.preventDefault()
+  hideComments(evt)
   const restroom_id = evt.target.children[0].value;
   const commentList =document.querySelector(`#comment-list${restroom_id}`)
-  console.log(Object.keys(commentList.children).length)
+  
   if (Object.keys(commentList.children).length === 0) {
   fetch(`/restroom/${restroom_id}`)
   .then(res => res.json())
-  .then(comments =>{ 
+  .then(comments =>{
+  
+    if(Object.keys(comments).length < 1){
+      commentList.insertAdjacentHTML('beforeend', `<h4 class="comments">No Comments Yet</h4>`)
+    }
     
     for (let i = 0; i < Object.keys(comments).length; i++) {
       commentList.insertAdjacentHTML('beforeend', `<h2 class="comments">${comments[i]}</h2>`)
