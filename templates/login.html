@@ -16,8 +16,14 @@
   </p>
 
   <p>
-    <input value="Log In" type="submit">
+    <input id="login-button" value="Log In" type="submit">
   </p>
+</form>
+
+<form action="/google-login">
+
+  <input id="google-login-button" value="log in with google" type="submit">
+
 </form>
 <h2>Create an Account</h2>
 <form action="/create-user" method="POST">
@@ -30,14 +36,12 @@
   </p>
 
   <p>
-    <input value="Create Account" type="submit">
+    <input id="create-button" value="Create Account" type="submit">
   </p>
 </form>
 
 
-<form action="/google-login">
-  <input value="log in with google" type="submit">
-</form>
+
 
 
 {% endblock %}
