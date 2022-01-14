@@ -6,8 +6,8 @@ import crud
 from jinja2 import StrictUndefined
 import requests
 from authlib.integrations.flask_client import OAuth
-import os
 import bcrypt
+import os
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -63,7 +63,7 @@ def authorize():
         user = crud.get_user_by_email(profile['email'])
         session["user_id"] = user.user_id
     else:
-        hashed_password = bcrypt.hashpw(profile['id'].encode(encoding='utf-8'), bcrypt.gensalt())
+        hashed_password = bcrypt.hashpw(profile['id'].encode(utf8), bcrypt.gensalt())
         crud.create_user(profile['email'], hashed_password)
         user = crud.get_user_by_email(profile['email'])
         session["user_id"] = user.user_id
@@ -91,7 +91,8 @@ def create_user():
     if user:
         flash("That email is already associated with an account.")
     else:
-        hashed_password = bcrypt.hashpw(password.encode(encoding='utf-8'), bcrypt.gensalt())
+        password = password.encode('utf8')
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
         crud.create_user(email, hashed_password)
         flash("Account created!")
     
@@ -106,9 +107,11 @@ def handle_login():
     email = request.form.get("email")
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
-    print("\n", "*"*20, user.password,"\n")
-    password = password.encode(encoding='utf-8')
-    if bcrypt.checkpw(password, user.password):
+  
+    password = password.encode('utf8')
+    print("\n", "*"*40, password)
+    print("\n", "*"*40, user.password.encode())
+    if bcrypt.checkpw(password, user.password.encode()):
         if user:
             if user.email == email:
                 session["user_id"] = user.user_id
@@ -234,7 +237,11 @@ def search_handler():
 @app.route("/restroom/<restroom_id>")
 def see_comments(restroom_id):
     restroom = crud.get_restroom_by_id(restroom_id)
-    return render_template("restroom-comments.html", restroom=restroom)
+    comments = {}
+    for i, comment in enumerate(restroom.comments):
+        comments[i] = comment.comment_text
+    return comments
+    # return render_template("restroom-comments.html", restroom=restroom)
 
 
 

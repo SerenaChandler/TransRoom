@@ -1,5 +1,7 @@
 const commentButtons = document.querySelectorAll(".comment-form");
 
+const showCommentButton = document.querySelectorAll('#comment-button-form')
+
 function leave_comment(evt) {
   evt.preventDefault();
   console.log(evt.target);
@@ -33,6 +35,33 @@ function leave_comment(evt) {
   }
 }
 
+function showComments(evt) {
+  evt.preventDefault()
+  const commentList =document.querySelector('#comment-list')
+  console.log(Object.keys(commentList.children).length)
+  const restroom_id = evt.target.children[0].value;
+  if (Object.keys(commentList.children).length === 0) {
+  fetch(`/restroom/${restroom_id}`)
+  .then(res => res.json())
+  .then(comments =>{ 
+    
+    for (let i = 0; i < Object.keys(comments).length; i++) {
+      commentList.insertAdjacentHTML('beforeend', `<li>${comments[i]}</li>`)
+    }
+    })
+  }
+}
+
+
+
+
+
+
 for (button of commentButtons) {
   button.addEventListener("submit", leave_comment);
+}
+
+
+for (button of showCommentButton){
+  button.addEventListener("submit", showComments);
 }
