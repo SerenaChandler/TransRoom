@@ -10,6 +10,7 @@ import bcrypt
 import werkzeug
 import os
 
+
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
@@ -226,7 +227,7 @@ def search_handler():
             final_rating = ("{:.1f}".format(averaged_score))
             restroom_scores.append(final_rating)
             
-    return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms,user=user, restroom_scores=restroom_scores)
+    return render_template("homepage.html", searched_restrooms=searched_restrooms,user=user, restroom_scores=restroom_scores)
 
 
 
@@ -236,10 +237,16 @@ def search_handler():
 def see_comments(restroom_id):
     restroom = crud.get_restroom_by_id(restroom_id)
     comments = {}
+    rating = {}
+    comments_and_ratings = {}
     for i, comment in enumerate(restroom.comments):
         comments[i] = comment.comment_text
-    return comments
-    # return render_template("restroom-comments.html", restroom=restroom)
+    for i, comment in enumerate(restroom.comments):
+        rating[i] = comment.rating
+    comments_and_ratings['comments'] = comments
+    comments_and_ratings['rating'] = rating
+    return comments_and_ratings
+    
 
 
 
