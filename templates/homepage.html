@@ -61,17 +61,17 @@
         </form>
         {% endif %}
 
-        <form id="comment-button-form" action="/restroom/{{searched_restroom.restroom_id}}">
+        <form style="display: inline;" id="comment-button-form" action="/restroom/{{searched_restroom.restroom_id}}">
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
             <input id="comments-button" value=" Show Comments" type="submit">
         </form>
 
-        <form id="hide-comment-button-form">
+        <form style="display: inline;" id="hide-comment-button-form">
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
             <input id="comments-button" value="Hide Comments" type="submit">
         </form>
         
-        <ul id="comment-list">
+        <ul id="comment-list{{searched_restroom.restroom_id}}">
             
         </ul>
     </div>
