@@ -14,7 +14,7 @@ class User(db.Model):
     password = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
-        return f"<User user_id={self.user_id} username={self.username} email={self.email}>"
+        return f"<User user_id={self.user_id} email={self.email}>"
 
 
 class Comment(db.Model):

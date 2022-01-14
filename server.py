@@ -7,6 +7,7 @@ from jinja2 import StrictUndefined
 import requests
 from authlib.integrations.flask_client import OAuth
 import os
+import bcrypt
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -52,6 +53,7 @@ def login():
 def authorize():
     google = oauth.create_client('google')
     token = google.authorize_access_token()
+    print("\n", "*"*20, token,"\n")
     resp = google.get('userinfo')
     resp.raise_for_status()
     profile = resp.json()
@@ -61,7 +63,8 @@ def authorize():
         user = crud.get_user_by_email(profile['email'])
         session["user_id"] = user.user_id
     else:
-        crud.create_user(profile['email'], profile['id'])
+        hashed_password = bcrypt.hashpw(profile['id'].encode(encoding='utf-8'), bcrypt.gensalt())
+        crud.create_user(profile['email'], hashed_password)
         user = crud.get_user_by_email(profile['email'])
         session["user_id"] = user.user_id
     return redirect('/')
@@ -71,9 +74,6 @@ def authorize():
 @app.route("/logout")
 def logout():
     if session.get("user_id"):
-        session.clear()
-        flash("successfully logged out.")
-    elif session.get('email'):
         session.clear()
         flash("successfully logged out.")
     else:
@@ -91,7 +91,8 @@ def create_user():
     if user:
         flash("That email is already associated with an account.")
     else:
-        crud.create_user(email, password)
+        hashed_password = bcrypt.hashpw(password.encode(encoding='utf-8'), bcrypt.gensalt())
+        crud.create_user(email, hashed_password)
         flash("Account created!")
     
     return redirect("/login")
@@ -105,13 +106,18 @@ def handle_login():
     email = request.form.get("email")
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
-    if user:
-        if user.email == email and user.password == password:
-            session["user_id"] = user.user_id
-            flash("Logged in!")
-            return redirect("/")
+    print("\n", "*"*20, user.password,"\n")
+    password = password.encode(encoding='utf-8')
+    if bcrypt.checkpw(password, user.password):
+        if user:
+            if user.email == email:
+                session["user_id"] = user.user_id
+                flash("Logged in!")
+                return redirect("/")
+        else:
+            flash("Incorrect password or email. Please try again")
     else:
-        flash("Incorrect password or email. Please try again")
+            flash("Incorrect password or email. Please try again")
     return redirect("/login")
 
 
@@ -217,7 +223,7 @@ def search_handler():
                     i+=1
             averaged_score = total_score/i
             final_rating = ("{:.1f}".format(averaged_score))
-            restroom_scores.append(int(final_rating))
+            restroom_scores.append(final_rating)
             
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=searched_restrooms,user=user, restroom_scores=restroom_scores)
 

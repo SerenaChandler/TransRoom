@@ -61,11 +61,9 @@
         </form>
         {% endif %}
 
-        <a id="comment-link" href="/restroom/{{searched_restroom.restroom_id}}">
-            <div id="comments-button">
-                <h3>Past Comments</h3>
-            </div>
-        </a>
+        <form action="/restroom/{{searched_restroom.restroom_id}}">
+            <input id="comments-button" value="Past Comments" type="submit">
+        </form>
 
     </div>
 </div>
