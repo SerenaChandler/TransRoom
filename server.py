@@ -7,6 +7,7 @@ from jinja2 import StrictUndefined
 import requests
 from authlib.integrations.flask_client import OAuth
 import bcrypt
+import werkzeug
 import os
 
 app = Flask(__name__)
@@ -63,7 +64,7 @@ def authorize():
         user = crud.get_user_by_email(profile['email'])
         session["user_id"] = user.user_id
     else:
-        hashed_password = bcrypt.hashpw(profile['id'].encode(utf8), bcrypt.gensalt())
+        hashed_password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
         crud.create_user(profile['email'], hashed_password)
         user = crud.get_user_by_email(profile['email'])
         session["user_id"] = user.user_id
@@ -91,8 +92,7 @@ def create_user():
     if user:
         flash("That email is already associated with an account.")
     else:
-        password = password.encode('utf8')
-        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+        hashed_password = werkzeug.security.generate_password_hash(password, method='pbkdf2:sha256', salt_length=16)
         crud.create_user(email, hashed_password)
         flash("Account created!")
     
@@ -108,10 +108,7 @@ def handle_login():
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
   
-    password = password.encode('utf8')
-    print("\n", "*"*40, password)
-    print("\n", "*"*40, user.password.encode())
-    if bcrypt.checkpw(password, user.password.encode()):
+    if werkzeug.security.check_password_hash(user.password, password):
         if user:
             if user.email == email:
                 session["user_id"] = user.user_id
@@ -120,7 +117,8 @@ def handle_login():
         else:
             flash("Incorrect password or email. Please try again")
     else:
-            flash("Incorrect password or email. Please try again")
+        flash("Incorrect password or email. Please try again")
+
     return redirect("/login")
 
 
