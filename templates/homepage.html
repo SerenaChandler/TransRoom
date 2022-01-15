@@ -22,18 +22,18 @@
 {% for searched_restroom in searched_restrooms %}
 <div id="restaurant-container">
     <div id="container-text">
-        <h2 >{{searched_restroom.restaurant_name}}</h2>
+        <h2>{{searched_restroom.restaurant_name}}</h2>
 
 
         {% if restroom_scores[loop.index0] == '0.0' %}
 
-        <h3 id="rating{{searched_restroom.restroom_id}}" >Rating:
+        <h3 id="rating{{searched_restroom.restroom_id}}">Rating:
             Not Yet Rated</h3>
 
         {% endif %}
 
         {% if restroom_scores[loop.index0] != '0.0' %}
-        <h3 id="rating{{searched_restroom.restroom_id}}" >Rating:
+        <h3 id="rating{{searched_restroom.restroom_id}}">Rating:
             {{restroom_scores[loop.index0]}}/5</h3>
 
 
@@ -70,9 +70,9 @@
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
             <input id="comments-button" value="Hide Comments" type="submit">
         </form>
-        
+
         <ul id="comment-list{{searched_restroom.restroom_id}}">
-            
+
         </ul>
     </div>
 </div>

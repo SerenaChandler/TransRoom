@@ -26,11 +26,8 @@ function leave_comment(evt) {
     })
       .then((res) => res.json())
       .then((resj) => {
-        console.log(
-          document.querySelector(`#comment-list${restroom_id}`).innerHTML
-        );
         if (
-          document.querySelector(`#comment-list${restroom_id}`).innerHTML != ""
+          document.querySelector(`#comment-list${restroom_id}`).innerHTML !== ""
         ) {
           showComments(evt);
         }
@@ -51,23 +48,22 @@ function showComments(evt) {
   const commentList = document.querySelector(`#comment-list${restroom_id}`);
   commentList.innerHTML = "";
 
-    fetch(`/restroom/${restroom_id}`)
-      .then((res) => res.json())
-      .then((comments) => {
-        if (Object.keys(comments['comments']).length < 1) {
-          commentList.insertAdjacentHTML(
-            "beforeend",
-            `<h4 class="comments">No Comments Yet</h4>`
-          );
-        }
-        for (let i = 0; i < Object.keys(comments["comments"]).length; i++) {
-          commentList.insertAdjacentHTML(
-            "beforeend",
-            `<h2 class="comments">${comments["comments"][i]}: ${comments["rating"][i]}/5</h2>`
-          );
-        }
-      });
-  
+  fetch(`/restroom/${restroom_id}`)
+    .then((res) => res.json())
+    .then((comments) => {
+      if (Object.keys(comments["comments"]).length < 1) {
+        commentList.insertAdjacentHTML(
+          "beforeend",
+          `<h4 class="comments">No Comments Yet</h4>`
+        );
+      }
+      for (let i = 0; i < Object.keys(comments["comments"]).length; i++) {
+        commentList.insertAdjacentHTML(
+          "afterbegin",
+          `<h2 class="comments">${comments["comments"][i]}: ${comments["rating"][i]}/5</h2>`
+        );
+      }
+    });
 }
 
 function hideComments(evt) {
