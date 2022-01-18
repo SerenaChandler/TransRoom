@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="/static/css/site.css" >
+{% extends 'react-base.html' %}
 
-  <!-- We'll load React dependencies on all pages for this app. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js" crossorigin></script>
-  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
-</head>
-<body>
-  <!-- Include the page's content with this block. -->
-  {% block body %}
-  <div id="ReactApp"></div>
-  {% endblock %}
+{% block title %}Homepage{% endblock %}
 
-  <!-- Include any page-specific JavaScript using this block. -->
-  {% block js %}
-  <script src="../static/js/react.jsx" type="text/jsx"></script>
-  {% endblock %}
-</body>
-</html>
+{% block body %}
+
+
+<div id="ReactApp"></div>
+
+
+{% endblock %}

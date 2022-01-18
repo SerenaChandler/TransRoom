@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}Homepage{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/site.css" >
+
+  <!-- We'll load React dependencies on all pages for this app. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js" crossorigin></script>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+</head>
+
+<header class="header">
+    <nav id="navbar">
+      <div>
+        <a href="/"><img style="height: 50px; width: auto;" src="../static/img/transflagsimple.png"
+            alt="image of the trans pride flad"></a>
+      </div>
+  
+      <div id="navtext">
+        <h2 class="navtext"><a href="/add">Add a Restroom</a></h2>
+        <h2 class="navtext"><a href="/user">User Profile</a></h2>
+        <h2 class="navtext"><a href="/login">Login</a></h2>
+        <h2 class="navtext"><a href="/logout">Logout</a></h2>
+      </div>
+    </nav>
+  </header>
+  
+<body>
+  <!-- Include the page's content with this block. -->
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-msg">
+    {{ msg }}
+  </p>
+  {% endfor %}
+  {% block body %}
+
+  {% endblock %}
+
+  <!-- Include any page-specific JavaScript using this block. -->
+  {% block js %}
+  <script src="../static/js/react.jsx" type="text/jsx"></script>
+  {% endblock %}
+</body>
+</html>
