@@ -175,7 +175,7 @@ def search_handler():
     APIURL = "http://www.refugerestrooms.org/api/v1/restrooms/search?page=1&per_page=30&offset=0&query="
     search = request.args.get("search").lower()
     ADA = request.args.get("ada")
-    print("\n", "*"*20, ADA,"\n")
+    
     query = APIURL + search
     restrooms = ""
     user = None
@@ -208,7 +208,7 @@ def search_handler():
         for restroom in restrooms:
             current_restroom = crud.get_restroom_by_address(restroom["street"])
             if not current_restroom:
-                crud.create_restroom(restroom['name'],restroom['street'],restroom['city'].lower(),restroom['accessible'])
+                crud.create_restroom(restroom['name'],restroom['street'],restroom['city'],restroom['accessible'])
 
         if ADA == "True":
             searched_restrooms = crud.get_all_accessible_restrooms_by_city(search)

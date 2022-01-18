@@ -27,7 +27,7 @@ def get_user_by_email(email):
 
 
 def create_restroom(name, address, city, ada):
-    restroom = Restroom(restaurant_name=name, address=address,city=city, ADA=ada)
+    restroom = Restroom(restaurant_name=name, address=address,city=city.lower(), ADA=ada)
     db.session.add(restroom)
     db.session.commit()
 
