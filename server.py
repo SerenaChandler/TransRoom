@@ -32,6 +32,7 @@ client_kwargs={'scope': 'openid profile email'}
 @app.route("/")
 def homepage():
     restrooms = ""
+    return render_template("index.html")
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=restrooms)
 
 
