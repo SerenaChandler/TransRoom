@@ -123,6 +123,12 @@
   width: 25%;
 }
 
+#flag {
+height: 50px; 
+width: auto;
+}
+
+
 .navtext {
   margin-right: 10px;
   display: inline;
