@@ -1,4 +1,7 @@
 
+const button = document.querySelector('#pals')
+
+
 function SearchBar() {
   return (
     <div>

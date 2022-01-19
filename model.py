@@ -11,6 +11,7 @@ class User(db.Model):
     __tablename__='users'
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(), nullable=False, unique=True)
+    # username = db.Column(db.String())
     password = db.Column(db.String(), nullable=False)
 
 
@@ -63,12 +64,12 @@ class Restroom(db.Model):
 
     def to_dict(self):
         restroom = {}
-        comment['id'] = self.restroom_id
-        comment['name'] = self.restaurant_name
-        comment['address'] = self.address
-        comment['city'] = self.city
-        comment['ADA'] = self.ADA
-        return comment
+        restroom['id'] = self.restroom_id
+        restroom['name'] = self.restaurant_name
+        restroom['address'] = self.address
+        restroom['city'] = self.city
+        restroom['ADA'] = self.ADA
+        return restroom
 
     def __repr__(self):
         return f"""<Restroom restroom_id={self.restroom_id} 

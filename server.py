@@ -34,9 +34,46 @@ client_kwargs={'scope': 'openid profile email'}
 @app.route("/")
 def homepage():
     restrooms = ""
-    return render_template("index.html")
+    user = None
+    if session.get("user_id"):
+        user = crud.get_user_by_id(session["user_id"])
+    # return render_template("index.html", user=user)
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=restrooms)
 
+
+@app.route("/pee-pal")
+def pal_page():
+
+    if session.get("user_id"):
+        return render_template('pals.html')
+    else:
+        flash("Must be logged in to use Pee Pals")
+
+    return redirect('/')
+
+@app.route('/find-pals')
+def find_pals():
+
+    if session.get("user_id"):
+        user = crud.get_user_by_id(session["user_id"])
+    print("\n", "*"*20, user.comments,"\n")
+    restrooms = []
+    for comment in user.comments:
+        if comment.restroom_id not in restrooms:
+            restrooms.append(comment.restroom_id)
+    print("\n", "*"*20, restrooms,"\n")
+
+    users = crud.get_users()
+    matched_users = []
+    for user in users:
+        if user.user_id != session["user_id"]:
+            for comment in user.comments:
+                if comment.restroom_id in restrooms and user not in matched_users:
+                    matched_users.append(user)
+    print("\n", "*"*20, matched_users,"\n")
+
+
+    return redirect("/pee-pal")
 
 @app.route("/login")
 def login_page():
@@ -112,14 +149,16 @@ def handle_login():
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
   
-    if werkzeug.security.check_password_hash(user.password, password):
-        if user:
-            if user.email == email:
-                session["user_id"] = user.user_id
-                flash("Logged in!")
-                return redirect("/")
-        else:
-            flash("Incorrect password or email. Please try again")
+
+    if user:
+        if werkzeug.security.check_password_hash(user.password, password):
+            if user:
+                if user.email == email:
+                    session["user_id"] = user.user_id
+                    flash("Logged in!")
+                    return redirect("/")
+            else:
+                flash("Incorrect password or email. Please try again")
     else:
         flash("Incorrect password or email. Please try again")
 
