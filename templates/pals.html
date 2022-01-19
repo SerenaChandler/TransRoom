@@ -16,5 +16,17 @@
     <input type="submit" value="I'm afraid of intimacy">
 </form>
 
+{% if matches %}
+
+{% for match in matches %}
+
+<h1>{{match.email}}</h1>
+
+
+
+{% endfor %}
+
+{% endif %}
+
 
 {% endblock %}

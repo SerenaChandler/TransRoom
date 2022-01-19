@@ -43,9 +43,9 @@ def homepage():
 
 @app.route("/pee-pal")
 def pal_page():
-
+    matches = None
     if session.get("user_id"):
-        return render_template('pals.html')
+        return render_template('pals.html', matches=matches)
     else:
         flash("Must be logged in to use Pee Pals")
 
@@ -73,7 +73,7 @@ def find_pals():
     print("\n", "*"*20, matched_users,"\n")
 
 
-    return redirect("/pee-pal")
+    return render_template('/pals.html', matches=matched_users)
 
 @app.route("/login")
 def login_page():
