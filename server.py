@@ -9,11 +9,13 @@ from authlib.integrations.flask_client import OAuth
 import bcrypt
 import werkzeug
 import os
+import json
 
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
+
 
 oauth = OAuth(app)
 google = oauth.register(
@@ -227,7 +229,12 @@ def search_handler():
             averaged_score = total_score/i
             final_rating = ("{:.1f}".format(averaged_score))
             restroom_scores.append(final_rating)
-            
+    data = {}
+    data['restrooms'] = searched_restrooms
+    data['scores'] = restroom_scores
+    data['user'] = user
+    print("\n", "*"*20, data,"\n")
+    # return json.dumps(searched_restrooms)
     return render_template("homepage.html", searched_restrooms=searched_restrooms,user=user, restroom_scores=restroom_scores)
 
 

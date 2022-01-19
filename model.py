@@ -13,6 +13,14 @@ class User(db.Model):
     email = db.Column(db.String(), nullable=False, unique=True)
     password = db.Column(db.String(), nullable=False)
 
+
+    def to_dict(self):
+        user = {}
+        user['id'] = self.user_id
+        user['email'] = self.email
+        user['password'] = self.password
+        return user
+
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.email}>"
 
@@ -30,6 +38,15 @@ class Comment(db.Model):
     user = db.relationship("User", backref="comments")
     restroom = db.relationship("Restroom", backref="comments")
 
+    def to_dict(self):
+        comment = {}
+        comment['id'] = self.comment_id
+        comment['user'] = self.user_id
+        comment['restroom'] = self.restroom_id
+        comment['text'] = self.comment_text
+        comment['rating'] = self.rating
+        return comment
+
     def __repr__(self):
         return f"<Comment comment_id={self.comment_id} comment_text={self.comment_text} rating={self.rating}>"
 
@@ -42,6 +59,16 @@ class Restroom(db.Model):
     address = db.Column(db.String(), nullable=False, unique=True)
     city = db.Column(db.String(), nullable=False)
     ADA = db.Column(db.Boolean, nullable=False, default=False)
+
+
+    def to_dict(self):
+        restroom = {}
+        comment['id'] = self.restroom_id
+        comment['name'] = self.restaurant_name
+        comment['address'] = self.address
+        comment['city'] = self.city
+        comment['ADA'] = self.ADA
+        return comment
 
     def __repr__(self):
         return f"""<Restroom restroom_id={self.restroom_id} 

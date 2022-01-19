@@ -10,6 +10,7 @@ class ServerTestsLogin(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
         app.config['TESTING'] = True
+        
 
         with self.client as c:
             with c.session_transaction() as sess:
@@ -23,9 +24,9 @@ class ServerTestsLogin(unittest.TestCase):
         result = self.client.get("/user")
         self.assertIn(b"Your comments", result.data)
 
-    def test_login_page(self):
-        result = self.client.get("/login")
-        self.assertIn(b"Create an", result.data)
+    # def test_login_page(self):
+    #     result = self.client.get("/login")
+    #     self.assertIn(b"Create an", result.data)
 
    
 
@@ -53,3 +54,4 @@ class ServerTestsLogout(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    
