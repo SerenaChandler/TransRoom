@@ -106,7 +106,8 @@ def authorize():
         session["user_id"] = user.user_id
     else:
         hashed_password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
-        crud.create_user(profile['email'], hashed_password)
+        username = profile['given_name']
+        crud.create_user(profile['email'], hashed_password, username)
         user = crud.get_user_by_email(profile['email'])
         session["user_id"] = user.user_id
     return redirect('/')
