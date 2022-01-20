@@ -41,13 +41,13 @@ def homepage():
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=restrooms)
 
 
-@app.route("/pee-pal")
+@app.route("/bowlmates")
 def pal_page():
     matches = None
     if session.get("user_id"):
         return render_template('pals.html', matches=matches)
     else:
-        flash("Must be logged in to use Pee Pals")
+        flash("Must be logged in to use Bowlmates")
 
     return redirect('/')
 
@@ -69,10 +69,10 @@ def find_pals():
         if user.user_id != session["user_id"]:
             for comment in user.comments:
                 if comment.restroom_id in restrooms and user not in matched_users:
-                    matched_users.append(user)
+                    matched_users.append(user.to_dict())
     print("\n", "*"*20, matched_users,"\n")
 
-
+    return jsonify(matched_users)
     return render_template('/pals.html', matches=matched_users)
 
 @app.route("/login")

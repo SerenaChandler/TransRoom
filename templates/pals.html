@@ -20,13 +20,17 @@
 
 {% for match in matches %}
 
+<div>
 <h1>{{match.username}}</h1>
+<form action="">
+    <input type="submit" value="Add Bowlmate">
+</form>
 
-
+</div>
 
 {% endfor %}
 
 {% endif %}
-
+<div id="ReactApp"></div>
 
 {% endblock %}

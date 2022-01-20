@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/css/site.css">
   <title>{% block title %}{% endblock %}</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js" crossorigin></script>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 </head>
 <header class="header">
   <nav id="navbar">
@@ -16,7 +19,7 @@
     </div>
 
     <div id="navtext">
-      <h2 class="navtext"><a href="/pee-pal">Find a Bowlmate</a></h2>
+      <h2 class="navtext"><a href="/bowlmates">Find a Bowlmate</a></h2>
       <h2 class="navtext"><a href="/add">Add a Restroom</a></h2>
       <h2 class="navtext"><a href="/user">User Profile</a></h2>
       <h2 class="navtext"><a href="/login">Login</a></h2>
@@ -32,6 +35,7 @@
   </p>
   {% endfor %}
   {% block body %}{% endblock %}
+  <script src="../static/js/react.jsx" type="text/jsx"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
   <script src="../static/js/search.js"></script>
 </body>

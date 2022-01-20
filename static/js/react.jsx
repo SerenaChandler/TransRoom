@@ -1,53 +1,49 @@
+function App() {
+  function MatchCard(props) {
+    return (
+      <div className="match">
+        <p>Username: {props.username}</p>
+      </div>
+    );
+  }
 
+  const FindMatches = () => {
+    const [matchesData, setMatchesData] = React.useState([]);
 
-function SearchBar() {
-  return (
-    <div>
-        <h1>search for a restroom!</h1>
-      <form action="/handle-search" id="search-form">
-        <p className="searchBarElement">
-          Search: <input id="search-text" type="text" name="search"></input>
-        </p>
-        <input
-          className="searchBarElement"
-          type="checkbox"
-          name="ada"
-          value="True"
-        ></input>
-        <label>ADA accessible</label>
+    React.useEffect(() => {
+      fetch("/find-pals")
+        .then((res) => res.json())
+        .then((data) => setMatchesData(data));
+    }, []);
 
-        <p className="searchBarElement">
-          <input
-            value="Find a restroom!"
-            id="search-button"
-            type="submit"
-          ></input>
-        </p>
-      </form>
-    </div>
-  );
-}
+    const matches = [];
+    function makeMatches() {
+    for (let match of matchesData) {
+      console.log(match);
+      matches.push(<MatchCard key={match.id} username={match.username} />);
+    }}
 
+    if (matches.length < 1) {
+    return (
+      <React.Fragment>
+        <button onClick={makeMatches}>click here</button>
+      </React.Fragment>
+    );
+  }else{
+    return (
+      <React.Fragment>
+        <div>{matches}</div>
+      </React.Fragment>
+    );
+    }
 
-function GetSearchResults() {
+  };
 
-    return(
-        <div>
-
-        </div>
-
-    )
-}
-
-
-
-function DisplayPage() {
   return (
     <React.Fragment>
-      {/* <NavBar /> */}
-      <SearchBar />
+      <FindMatches />
     </React.Fragment>
   );
 }
 
-ReactDOM.render(<DisplayPage />, document.querySelector("#ReactApp"));
+ReactDOM.render(<App />, document.querySelector("#ReactApp"));

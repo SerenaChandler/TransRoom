@@ -19,6 +19,7 @@ class User(db.Model):
         user = {}
         user['id'] = self.user_id
         user['email'] = self.email
+        user['username'] = self.username
         user['password'] = self.password
         return user
 
