@@ -1,4 +1,7 @@
 function App() {
+  const [matchesData, setMatchesData] = React.useState([]);
+  const [displayMatches, setDisplayMatches] = React.useState([]);
+
   function MatchCard(props) {
     return (
       <div className="match">
@@ -7,43 +10,46 @@ function App() {
     );
   }
 
-  const FindMatches = () => {
-    const [matchesData, setMatchesData] = React.useState([]);
+  React.useEffect(() => {
+    fetch("/find-pals")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setMatchesData(data);
+      });
+  }, []);
 
-    React.useEffect(() => {
-      fetch("/find-pals")
-        .then((res) => res.json())
-        .then((data) => setMatchesData(data));
-    }, []);
+  function showMatches() {
+    const matchList = []
+    for (let match of matchesData){
+      matchList.push(
+        <MatchCard
+        key={match.id}
+        username={match.username}
 
-    const matches = [];
-    function makeMatches() {
-    for (let match of matchesData) {
-      console.log(match);
-      matches.push(<MatchCard key={match.id} username={match.username} />);
-    }}
-
-    if (matches.length < 1) {
-    return (
-      <React.Fragment>
-        <button onClick={makeMatches}>click here</button>
-      </React.Fragment>
-    );
-  }else{
-    return (
-      <React.Fragment>
-        <div>{matches}</div>
-      </React.Fragment>
-    );
+        />
+      )
     }
+    setDisplayMatches(matchList)
 
-  };
+  }
+
+
+
+
+  function checkState() {
+    console.log(matchesData);
+  }
 
   return (
     <React.Fragment>
-      <FindMatches />
+      <MatchButton checkState={showMatches}  />
     </React.Fragment>
   );
+}
+
+function MatchButton(props) {
+  return <button onClick={props.checkState}>Click Here</button>;
 }
 
 ReactDOM.render(<App />, document.querySelector("#ReactApp"));
