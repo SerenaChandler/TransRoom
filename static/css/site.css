@@ -27,13 +27,13 @@
   padding-bottom: 10px;
 }
 
-#google-logo{
-    height: 5%;
-    width: 5%;
+#google-logo {
+  height: 5%;
+  width: 5%;
 }
 
 #comments-button,
-#delete-comment-button{
+#delete-comment-button {
   border-radius: 5px;
   border: solid black 2px;
   width: 25%;
@@ -41,8 +41,7 @@
   text-align: center;
   background-color: rgb(255, 240, 255);
   font-size: large;
-  font-family: 'Times New Roman', Times, serif;
-
+  font-family: "Times New Roman", Times, serif;
 }
 
 #comments-button:hover,
@@ -70,7 +69,6 @@
   background-color: rgb(255, 203, 255);
 }
 
-
 #add-comment {
   border-radius: 5px;
   border: solid black 2px;
@@ -94,9 +92,6 @@
   background-color: rgb(255, 240, 255);
 }
 
-
-
-
 .comments {
   border: black solid 2px;
   border-radius: 5px;
@@ -106,8 +101,6 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
-
 
 .comment-box {
   border: black solid 5px;
@@ -124,8 +117,16 @@
 }
 
 #flag {
-height: 50px; 
-width: auto;
+  height: 50px;
+  width: auto;
+}
+
+.match {
+  border: solid black 2px;
+  width: 20%;
+  margin-left: 40%;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .searchBarElement {

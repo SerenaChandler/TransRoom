@@ -78,6 +78,33 @@ class Restroom(db.Model):
 
 
 
+class Friend(db.Model):
+    """a friend"""
+
+    __tablename__='friends'
+    friend_id= db.Column(db.Integer, primary_key=True, autoincrement=True)
+    friend_name = db.Column(db.String(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+    user = db.relationship("User", backref="friends")
+
+    def to_dict(self):
+        friend = {}
+        friend['id'] = self.friend_id
+        friend['name'] = self.friend_name
+        friend['user'] = self.user_id
+
+
+    def __repr__(self):
+        return f"""<Friend friend_id={self.friend_id}>"""
+
+
+
+
+
+
+
+
 
 def connect_to_db(flask_app, db_uri="postgresql:///comments", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

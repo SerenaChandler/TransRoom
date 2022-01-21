@@ -6,8 +6,13 @@ function App() {
     return (
       <div className="match">
         <p>Username: {props.username}</p>
+        <button>Add Friend</button>
       </div>
     );
+  }
+
+  function MatchContainer() {
+    return <div className="matchBox">{displayMatches}</div>;
   }
 
   React.useEffect(() => {
@@ -20,30 +25,17 @@ function App() {
   }, []);
 
   function showMatches() {
-    const matchList = []
-    for (let match of matchesData){
-      matchList.push(
-        <MatchCard
-        key={match.id}
-        username={match.username}
-
-        />
-      )
+    const matchList = [];
+    for (let match of matchesData) {
+      matchList.push(<MatchCard key={match.id} username={match.username} />);
     }
-    setDisplayMatches(matchList)
-
-  }
-
-
-
-
-  function checkState() {
-    console.log(matchesData);
+    setDisplayMatches(matchList);
   }
 
   return (
     <React.Fragment>
-      <MatchButton checkState={showMatches}  />
+      <MatchButton checkState={showMatches} />
+      <MatchContainer />
     </React.Fragment>
   );
 }
