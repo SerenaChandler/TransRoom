@@ -123,6 +123,7 @@
 
 .match {
   border: solid black 2px;
+  border-radius: 5px;
   width: 20%;
   margin-left: 40%;
   margin-bottom: 10px;

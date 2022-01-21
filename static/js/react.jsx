@@ -6,7 +6,7 @@ function App() {
     return (
       <div className="match">
         <p>Username: {props.username}</p>
-        <button>Add Friend</button>
+        <button id="comments-button">Add Friend</button>
       </div>
     );
   }

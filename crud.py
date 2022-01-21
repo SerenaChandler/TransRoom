@@ -64,3 +64,9 @@ def delete_comment(comment_id):
     db.session.delete(deleted_comment)
     db.session.commit()
      
+
+def create_friend(name,user):
+    friend = Friend(friend_name=name,user=user)
+    db.session.add(friend)
+    db.session.commit()
+    return friend

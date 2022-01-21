@@ -5,6 +5,12 @@ from sqlalchemy.orm import backref
 
 db = SQLAlchemy()
 
+friends = db.Table('friends',
+    db.Column('user_id', db.Integer, db.ForeignKey("users.user_id")),
+    db.Column('user_id', db.Integer, db.ForeignKey("users.user_id"))
+
+)
+
 class User(db.Model):
     """a user"""
 
@@ -13,6 +19,7 @@ class User(db.Model):
     email = db.Column(db.String(), nullable=False, unique=True)
     username = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False)
+    following = db.relationship('User', secondary=friends, backref='followers')
 
 
     def to_dict(self):
@@ -75,28 +82,6 @@ class Restroom(db.Model):
     def __repr__(self):
         return f"""<Restroom restroom_id={self.restroom_id} 
         address={self.address} restaurant_name={self.restaurant_name} ADA={self.ADA}>"""
-
-
-
-class Friend(db.Model):
-    """a friend"""
-
-    __tablename__='friends'
-    friend_id= db.Column(db.Integer, primary_key=True, autoincrement=True)
-    friend_name = db.Column(db.String(), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-
-    user = db.relationship("User", backref="friends")
-
-    def to_dict(self):
-        friend = {}
-        friend['id'] = self.friend_id
-        friend['name'] = self.friend_name
-        friend['user'] = self.user_id
-
-
-    def __repr__(self):
-        return f"""<Friend friend_id={self.friend_id}>"""
 
 
 
