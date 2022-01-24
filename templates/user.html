@@ -4,6 +4,14 @@
 
 
 {% block body %}
+<h1>Friends List</h1>
+{% for user in user.following %}
+
+<h2>{{user.username}}</h2>
+
+
+{% endfor %}
+
 
 <h1>Your comments will show up here!</h1>
 {% for comment in user.comments %}

@@ -10,6 +10,7 @@ import bcrypt
 import werkzeug
 import os
 import json
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
@@ -56,12 +57,12 @@ def find_pals():
 
     if session.get("user_id"):
         user = crud.get_user_by_id(session["user_id"])
-    print("\n", "*"*20, user.comments,"\n")
+    # print("\n", "*"*20, user.comments,"\n")
     restrooms = []
     for comment in user.comments:
         if comment.restroom_id not in restrooms:
             restrooms.append(comment.restroom_id)
-    print("\n", "*"*20, restrooms,"\n")
+    # print("\n", "*"*20, restrooms,"\n")
 
     users = crud.get_users()
     matched_users = []
@@ -70,7 +71,7 @@ def find_pals():
             for comment in user.comments:
                 if comment.restroom_id in restrooms and user.to_dict() not in matched_users:
                     matched_users.append(user.to_dict())
-    print("\n", "*"*20, matched_users,"\n")
+    # print("\n", "*"*20, matched_users,"\n")
 
     return jsonify(matched_users)
     return render_template('/pals.html', matches=matched_users)
@@ -80,9 +81,17 @@ def find_pals():
 def add_friend():
     friend_id = request.json.get('id')
     print("\n", "*"*20, friend_id,"\n")
-    if session.get("user_id"):
-        user = crud.get_user_by_id(session["user_id"])
+    friend = crud.get_user_by_id(friend_id)
+    print("\n", "*"*20, friend,"\n")
+    user = crud.get_user_by_id(session["user_id"])
 
+    print('added friend')
+    crud.add_friend(user, friend)
+
+    print("\n", "*"*20, user.following,"\n")
+    print("\n", "*"*20, friend.followers,"\n")
+
+    
 
     return jsonify({'success': True, "status": "Added friend!" })
     
@@ -195,6 +204,7 @@ def to_user_profile():
     
     if session.get("user_id"):
         user = crud.get_user_by_id(session["user_id"])
+        print("\n", "*"*20, user.following,"\n")
         return render_template("user.html", user=user)
     else:
         flash("Login to see your user page")

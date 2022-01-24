@@ -5,11 +5,14 @@ from sqlalchemy.orm import backref
 
 db = SQLAlchemy()
 
-friends = db.Table('friends',
-    db.Column('user_id', db.Integer, db.ForeignKey("users.user_id")),
-    db.Column('user_id', db.Integer, db.ForeignKey("users.user_id"))
 
+friend = db.Table(
+    'friends',
+    db.Column('friends_id', db.Integer, primary_key=True),
+    db.Column('f1_id', db.Integer, db.ForeignKey('users.user_id')),
+    db.Column('f2_id', db.Integer, db.ForeignKey('users.user_id'))
 )
+
 
 class User(db.Model):
     """a user"""
@@ -19,8 +22,14 @@ class User(db.Model):
     email = db.Column(db.String(), nullable=False, unique=True)
     username = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False)
-    following = db.relationship('User', secondary=friends, backref='followers')
 
+    following = db.relationship(
+        'User',
+        secondary=friend,
+        primaryjoin=user_id == friend.c.f1_id,
+        secondaryjoin=user_id == friend.c.f2_id,
+        backref='followers'
+    )
 
     def to_dict(self):
         user = {}
