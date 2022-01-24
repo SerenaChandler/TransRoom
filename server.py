@@ -68,12 +68,26 @@ def find_pals():
     for user in users:
         if user.user_id != session["user_id"]:
             for comment in user.comments:
-                if comment.restroom_id in restrooms and user not in matched_users:
+                if comment.restroom_id in restrooms and user.to_dict() not in matched_users:
                     matched_users.append(user.to_dict())
     print("\n", "*"*20, matched_users,"\n")
 
     return jsonify(matched_users)
     return render_template('/pals.html', matches=matched_users)
+
+
+@app.route('/add-friend', methods=["POST"])
+def add_friend():
+    friend_id = request.json.get('id')
+    print("\n", "*"*20, friend_id,"\n")
+    if session.get("user_id"):
+        user = crud.get_user_by_id(session["user_id"])
+
+
+    return jsonify({'success': True, "status": "Added friend!" })
+    
+
+
 
 @app.route("/login")
 def login_page():
