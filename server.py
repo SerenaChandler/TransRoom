@@ -163,6 +163,7 @@ def create_user():
     password = request.form.get("password")
     username = request.form.get("username")
     user = crud.get_user_by_email(email)
+    existing_username = crud.get_user_by_username(username)
 
     if not email:
         flash("Please enter email")
@@ -172,6 +173,8 @@ def create_user():
         flash("Please enter username")
     elif user:
         flash("That email is already associated with an account.")
+    elif existing_username:
+        flash("That username is already associated with an account.")
     else:
         hashed_password = werkzeug.security.generate_password_hash(password, method='pbkdf2:sha256', salt_length=16)
         crud.create_user(email, hashed_password, username)

@@ -4,34 +4,47 @@
 
 
 {% block body %}
-<h1>Friends List</h1>
-{% for user in user.following %}
 
-<h2>{{user.username}}</h2>
+<div>
+    <h1>Following</h1>
+    {% for user in user.following %}
+    <div class="comment-box">
+        <h1>{{user.username}}</h1>
 
-<form action="/delete-friend/{{user.user_id}}">
-    <input id="flush-friend-button" type="submit" value="flush">
-</form>
-
-
-{% endfor %}
-
-
-<h1>Your comments will show up here!</h1>
-{% for comment in user.comments %}
-<div class="comment-box">
-    <h5>{{comment.restroom.restaurant_name}}</h5>
-    <ul>
-        <h2>{{comment.comment_text}}
-            {{comment.rating}}/5
-        </h2>
-
-
-        <form action="/delete/comment/{{comment.comment_id}}">
-            <input id="delete-comment-button" value="delete" type="submit">
+        <form action="/delete-friend/{{user.user_id}}">
+            <input id="flush-friend-button" type="submit" value="flush">
         </form>
+    </div>
+    {% endfor %}
 </div>
-</ul>
-{% endfor %}
 
+
+<div>
+    <h1>Followers</h1>
+    {% for user in user.followers %}
+    <div class="comment-box">
+        <h1>{{user.username}}</h1>
+
+    </div>
+
+    {% endfor %}
+</div>
+
+
+<div>
+    <h1>Your comments will show up here!</h1>
+    {% for comment in user.comments %}
+    <div class="comment-box">
+        <h5>{{comment.restroom.restaurant_name}}</h5>
+        <ul>
+            <h2>{{comment.comment_text}}
+                {{comment.rating}}/5
+            </h2>
+            <form action="/delete/comment/{{comment.comment_id}}">
+                <input id="delete-comment-button" value="delete" type="submit">
+            </form>
+    </div>
+    </ul>
+    {% endfor %}
+</div>
 {% endblock %}
