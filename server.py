@@ -10,11 +10,12 @@ import bcrypt
 import werkzeug
 import os
 import json
-from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO, send, emit
 
 
 app = Flask(__name__)
 app.secret_key = "dev"
+socketio = SocketIO(app)
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -31,6 +32,11 @@ api_base_url='https://www.googleapis.com/oauth2/v1/',
 client_kwargs={'scope': 'openid profile email'}
 )
 
+
+@socketio.on('message')
+def handleMessage(msg):
+    print('message:' + msg)
+    send(msg, broadcast=True)
 
 @app.route("/")
 def homepage():
@@ -377,4 +383,5 @@ def delete_comment(comment_id):
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app, echo=False)
-    app.run(host="0.0.0.0", debug=True)
+    # app.run(host="0.0.0.0", debug=True)
+    socketio.run(app, host="0.0.0.0", debug=False)
