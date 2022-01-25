@@ -86,16 +86,24 @@ for (button of hideCommentsButton) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const socket = io.connect(
-    "https://" + document.domain + ":" + location.port,
+    "http://" + document.domain + ":" + location.port,
     { secure: true },
     { transports: ["websocket"] }
   );
 
+  socket.on("connect", function () {
 
+    socket.send("User has connected!");
+  });
 
-})
+  socket.on("message", function (msg) {
+    console.log(msg)
+    document
+      .querySelector("#messages")
+      .insertAdjacentHTML("beforeend", "<li>" + msg + "</li>");
+  });
+});
 
 // $(document).ready(function () {
 //   const socket = io.connect(
@@ -104,19 +112,19 @@ document.addEventListener("DOMContentLoaded", () => {
 //     { transports: ["websocket"] }
 //   );
 
-  // var socket = io.connect('http://' + document.domain + ":" + location.port);
+// var socket = io.connect('http://' + document.domain + ":" + location.port);
 
-  // socket.on('connect', function() {
-  // 	socket.send('User has connected!');
-  // });
+// socket.on('connect', function() {
+// 	socket.send('User has connected!');
+// });
 
-  // socket.on('message', function(msg) {
-  // 	$("#messages").append('<li>'+msg+'</li>');
-  // 	console.log('Received message');
-  // });
+// socket.on('message', function(msg) {
+// 	$("#messages").append('<li>'+msg+'</li>');
+// 	console.log('Received message');
+// });
 
-  // $('#sendbutton').on('click', function() {
-  // 	socket.send($('#myMessage').val());
-  // 	$('#myMessage').val('');
-  // });
+// $('#sendbutton').on('click', function() {
+// 	socket.send($('#myMessage').val());
+// 	$('#myMessage').val('');
+// });
 // });
