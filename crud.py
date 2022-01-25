@@ -29,6 +29,12 @@ def add_friend(user, friend):
     user.following.append(friend)
     db.session.commit()
 
+def delete_friend(user, friend):
+  for i, following in enumerate(user.following):
+      if following.user_id == friend.user_id:
+          user.following.pop(i)
+          db.session.commit() 
+
 def create_restroom(name, address, city, ada):
     restroom = Restroom(restaurant_name=name, address=address,city=city.lower(), ADA=ada)
     db.session.add(restroom)

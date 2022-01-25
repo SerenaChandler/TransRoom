@@ -9,6 +9,10 @@
 
 <h2>{{user.username}}</h2>
 
+<form action="/delete-friend/{{user.user_id}}">
+    <input type="submit" value="flush">
+</form>
+
 
 {% endfor %}
 

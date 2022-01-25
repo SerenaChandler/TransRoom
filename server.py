@@ -95,7 +95,12 @@ def add_friend():
 
     return jsonify({'success': True, "status": "Added friend!" })
     
-
+@app.route('/delete-friend/<user_id>')
+def delete_friend(user_id):
+    user = crud.get_user_by_id(session["user_id"])
+    friend = crud.get_user_by_id(user_id)
+    crud.delete_friend(user, friend)
+    return redirect("/user")
 
 
 @app.route("/login")
