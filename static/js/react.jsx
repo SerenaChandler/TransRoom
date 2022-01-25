@@ -6,11 +6,8 @@ function App() {
     return (
       <div className="match">
         <p>Username: {props.username}</p>
-        <button onClick={addFriend} id="comments-button">
-          Add Friend
-        </button>
         <form action="/add-friend">
-          <input type="submit" id={props.id} value={'add friend'} onClick={addFriend}/>
+          <input className="button" type="submit" id={props.id} value={'add friend'} onClick={addFriend}/>
         </form>
       </div>
     );
@@ -30,7 +27,7 @@ function App() {
       },
     })
       .then((res) => res.json())
-      .then(data => console.log(data))
+      .then(data => alert(data.status))
   }
 
   function MatchContainer() {
@@ -65,7 +62,7 @@ function App() {
 }
 
 function MatchButton(props) {
-  return <button onClick={props.seeFriends}>Click Here</button>;
+  return <button id="find-friends" onClick={props.seeFriends}>Find Your Bowlmate</button>;
 }
 
 ReactDOM.render(<App />, document.querySelector("#ReactApp"));

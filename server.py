@@ -84,16 +84,19 @@ def add_friend():
     friend = crud.get_user_by_id(friend_id)
     print("\n", "*"*20, friend,"\n")
     user = crud.get_user_by_id(session["user_id"])
+    if friend in user.following:
+        print('already friends')
+        return jsonify({'success': True, "status": "Already Friends!" })
+    else:
+        print('added friend')
+        crud.add_friend(user, friend)
 
-    print('added friend')
-    crud.add_friend(user, friend)
-
-    print("\n", "*"*20, user.following,"\n")
-    print("\n", "*"*20, friend.followers,"\n")
-
+        print("\n", "*"*20, user.following,"\n")
+        print("\n", "*"*20, friend.followers,"\n")
+        return jsonify({'success': True, "status": "Added friend!" })
     
 
-    return jsonify({'success': True, "status": "Added friend!" })
+   
     
 @app.route('/delete-friend/<user_id>')
 def delete_friend(user_id):
