@@ -91,6 +91,5 @@ def create_message(message_text, sender, recipient):
 
 def get_messages_by_user_and_recipient(user, recipient):
     print(recipient)
-    print(Message.query.filter(Message.sender == recipient.username, Message.recipient == user.username).all())
-    print(Message.query.filter(Message.sender == user.username, Message.recipient == recipient.username).all())
-    return Message.query.filter(Message.sender == user.username, Message.recipient == recipient.username).all()
+    # return Message.query.filter(Message.sender == user.username, Message.recipient == recipient.username).all()
+    return Message.query.filter(((Message.sender == user.username) & (Message.recipient == recipient.username)) | ((Message.sender == recipient.username) & (Message.recipient == user.username))).all()
