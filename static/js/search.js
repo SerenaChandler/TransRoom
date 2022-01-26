@@ -106,7 +106,7 @@ function leaveMessage(evt) {
       },
     })
       .then((res) => res.json())
-      .then(data => console.log(data))
+      .then(data => location.reload())
   } else {
   console.log('no message')
   }

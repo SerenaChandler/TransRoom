@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}{{recipient.username}}{% endblock %}
+{% block title %}Messagin: {{recipient.username}}{% endblock %}
 
 
 {% block body %}
 
 <form id="message-form" action="/send/message/{{recipient.user_id}}">
     <input type="text" name="message">
-    <input id="{{recipient.user_id}}" type="submit" value="Send Message">
+    <input class="search-button" id="{{recipient.user_id}}" type="submit" value="Send Message">
 </form>
 
 

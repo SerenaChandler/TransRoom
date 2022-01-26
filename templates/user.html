@@ -15,8 +15,8 @@
             <input id="flush-friend-button" type="submit" value="flush">
         </form>
 
-        <form action="/chat/{{user.user_id}}">
-            <input type="submit" value="Message">
+        <form  action="/chat/{{user.user_id}}">
+            <input class="message-button" type="submit" value="Message">
         </form>
     </div>
     {% endfor %}
@@ -31,7 +31,7 @@
 
 
         <form action="/chat/{{user.user_id}}">
-            <input type="submit" value="Message">
+            <input class="message-button" type="submit" value="Message">
         </form>
     </div>
 
