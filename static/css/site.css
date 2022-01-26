@@ -11,8 +11,19 @@
   width: 25%;
 }
 
-.messages {
+.my-messages {
   background-color: rgb(220, 250, 255);
+  border: black solid 5px;
+  border-radius: 20px;
+  width: 25%;
+  height: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.recipient-messages {
+  background-color: rgb(255, 236, 255);
   border: black solid 5px;
   border-radius: 20px;
   width: 25%;

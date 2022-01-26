@@ -6,12 +6,14 @@ const hideCommentsButton = document.querySelectorAll(
   "#hide-comment-button-form"
 );
 
-function leave_comment(evt) {
+const messageButton = document.querySelector("#message-form")
+
+function leaveComment(evt) {
   evt.preventDefault();
   console.log(evt.target);
   const restroom_id = evt.target.children[0].value;
   const current_rating = evt.target.children;
-  text = evt.target.children[1].value;
+  const text = evt.target.children[1].value;
   const formInputs = {
     rating: evt.target.children[3].value,
     text: evt.target.children[1].value,
@@ -74,7 +76,7 @@ function hideComments(evt) {
 }
 
 for (button of commentButtons) {
-  button.addEventListener("submit", leave_comment);
+  button.addEventListener("submit", leaveComment);
 }
 
 for (button of showCommentButton) {
@@ -84,3 +86,32 @@ for (button of showCommentButton) {
 for (button of hideCommentsButton) {
   button.addEventListener("submit", hideComments);
 }
+
+
+
+function leaveMessage(evt) {
+  evt.preventDefault()
+  const text = evt.target[0].value
+  const recipient = evt.target[1].id
+
+  const formInputs = {
+    text: evt.target[0].value
+  };
+  if (text != "") {
+    fetch(`/send/message/${recipient}`, {
+      method: "POST",
+      body: JSON.stringify(formInputs),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(data => console.log(data))
+  } else {
+  console.log('no message')
+  }
+
+
+}
+
+messageButton.addEventListener("submit", leaveMessage)

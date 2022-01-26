@@ -5,18 +5,28 @@
 
 {% block body %}
 
-<form action="/send/message/{{recipient.user_id}}">
+<form id="message-form" action="/send/message/{{recipient.user_id}}">
     <input type="text" name="message">
-    <input type="submit" value="Send Message">
+    <input id="{{recipient.user_id}}" type="submit" value="Send Message">
 </form>
+
 
 <ul id="messages">
     {% for message in messages %}
 
-    <div class="messages">
+    {% if message.sender == user.username %}
+    <div class="my-messages">
         <h4>{{message.sender}}</h4>
         <h3>{{message.message_text}}</h3>
     </div>
+    {% endif %}
+
+    {% if message.sender == recipient.username %}
+    <div class="recipient-messages">
+        <h4>{{message.sender}}</h4>
+        <h3>{{message.message_text}}</h3>
+    </div>
+    {% endif %}
     {% endfor %}
 </ul>
 

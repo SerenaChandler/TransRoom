@@ -383,17 +383,18 @@ def message_friend(user_id):
     user = crud.get_user_by_id(session["user_id"])
     messages = crud.get_messages_by_user_and_recipient(user=user, recipient=recipient)
     print("\n", "*"*40, messages,"\n")
+    messages.reverse()
     return render_template("message.html", recipient=recipient, user=user, messages=messages)
 
 
-@app.route("/send/message/<user_id>")
+@app.route("/send/message/<user_id>", methods = ["POST"])
 def create_message(user_id):
     recipient = crud.get_user_by_id(user_id)
     user = crud.get_user_by_id(session["user_id"])
-    text = request.args.get('message')
+    text = request.json.get('text')
     crud.create_message(message_text=text, sender=user, recipient=recipient)
 
-    return redirect('/user')
+    return jsonify({'success': True, "status": "message sent" })
 
 
 
