@@ -112,7 +112,8 @@ def delete_friend(user_id):
 @app.route("/login")
 def login_page():
     if session.get("user_id"):
-        flash("You're already logged in")
+        user = crud.get_user_by_id(session["user_id"])
+        flash(f'You already logged in, {user.username}')
     else:
         sess = session.get("user_id")   
         return render_template("login.html", sess=sess)
