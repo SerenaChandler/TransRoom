@@ -5,11 +5,19 @@
 
 {% block body %}
 
-<form action="send/message/{{recipient.user_id}}"></form>
-<input type="text" name="message">
-<input type="submit" value="Send Message">
-<ul id="messages" >
+<form action="/send/message/{{recipient.user_id}}">
+    <input type="text" name="message">
+    <input type="submit" value="Send Message">
+</form>
 
+<ul id="messages">
+    {% for message in messages %}
+
+    <div>
+        <h4>{{message.sender}}</h4>
+        <h3>{{message.message_text}}</h3>
+    </div>
+    {% endfor %}
 </ul>
 
 

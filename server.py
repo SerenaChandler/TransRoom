@@ -381,7 +381,20 @@ def delete_comment(comment_id):
 def message_friend(user_id):
     recipient = crud.get_user_by_id(user_id)
     user = crud.get_user_by_id(session["user_id"])
-    return render_template("message.html", recipient=recipient)
+    messages = crud.get_messages_by_user_and_recipient(user=user, recipient=recipient)
+    print("\n", "*"*40, messages,"\n")
+    return render_template("message.html", recipient=recipient, user=user, messages=messages)
+
+
+@app.route("/send/message/<user_id>")
+def create_message(user_id):
+    recipient = crud.get_user_by_id(user_id)
+    user = crud.get_user_by_id(session["user_id"])
+    text = request.args.get('message')
+    crud.create_message(message_text=text, sender=user, recipient=recipient)
+
+    return redirect('/user')
+
 
 
 if __name__ == "__main__":

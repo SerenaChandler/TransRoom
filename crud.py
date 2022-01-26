@@ -1,7 +1,7 @@
 
 from flask.templating import _default_template_ctx_processor
 from flask_sqlalchemy import _record_queries
-from model import db, User, Comment, Restroom, connect_to_db
+from model import db, User, Comment, Restroom, Message, connect_to_db
 
 
 
@@ -81,3 +81,16 @@ def create_friend(name,user):
     db.session.add(friend)
     db.session.commit()
     return friend
+
+
+def create_message(message_text, sender, recipient):
+    message = Message(message_text=message_text, sender=sender.username, recipient=recipient.username)
+    db.session.add(message)
+    db.session.commit()
+    return message
+
+def get_messages_by_user_and_recipient(user, recipient):
+    print(recipient)
+    print(Message.query.filter(Message.sender == recipient.username, Message.recipient == user.username).all())
+    print(Message.query.filter(Message.sender == user.username, Message.recipient == recipient.username).all())
+    return Message.query.filter(Message.sender == user.username, Message.recipient == recipient.username).all()
