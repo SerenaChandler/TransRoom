@@ -10,12 +10,12 @@ import bcrypt
 import werkzeug
 import os
 import json
-from flask_socketio import SocketIO, send, emit
+
 
 
 app = Flask(__name__)
 app.secret_key = "dev"
-socketio = SocketIO(app)
+
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -33,10 +33,7 @@ client_kwargs={'scope': 'openid profile email'}
 )
 
 
-@socketio.on('message')
-def handleMessage(msg):
-    print('message:' + msg)
-    send(msg, broadcast=True)
+
 
 @app.route("/")
 def homepage():
@@ -380,8 +377,14 @@ def delete_comment(comment_id):
     return redirect("/user")
 
 
+@app.route("/chat/<user_id>")
+def message_friend(user_id):
+    recipient = crud.get_user_by_id(user_id)
+    user = crud.get_user_by_id(session["user_id"])
+    return render_template("message.html", recipient=recipient)
+
+
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app, echo=False)
-    # app.run(host="0.0.0.0", debug=True)
-    socketio.run(app, host="0.0.0.0", debug=False)
+    app.run(host="0.0.0.0", debug=True)

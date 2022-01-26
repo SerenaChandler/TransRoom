@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{recipient.username}}{% endblock %}
+
+
+{% block body %}
+
+<form action="send/message/{{recipient.user_id}}"></form>
+<input type="text" name="message">
+<input type="submit" value="Send Message">
+<ul id="messages" >
+
+</ul>
+
+
+{% endblock %}

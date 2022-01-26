@@ -93,12 +93,19 @@ class Restroom(db.Model):
         address={self.address} restaurant_name={self.restaurant_name} ADA={self.ADA}>"""
 
 
+class Message(db.Model):
 
+    __tablename__='messages'
+    message_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    message_text = db.Column(db.String(), nullable=False)
+    sender_id = db.Column('sender', db.Integer, db.ForeignKey("users.user_id"))
+    recipient = db.Column(db.String(), nullable=False)
 
+    Sender = db.relationship("User", backref="messages")
 
-
-
-
+    def __repr__(self):
+        return f"""<Message message_id={self.message_id} 
+        sender_name={self.sender.username} recipient_name={self.recipient.username}>"""
 
 def connect_to_db(flask_app, db_uri="postgresql:///comments", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
