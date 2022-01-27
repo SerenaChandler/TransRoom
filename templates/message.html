@@ -20,14 +20,14 @@
     {% if message.sender == user.username %}
     <div class="my-messages">
         <!-- <h6>{{message.sender}}</h6> -->
-        <h3>{{message.message_text}}</h3>
+        <h3 class="message-text">{{message.message_text}}</h3>
     </div>
     {% endif %}
 
     {% if message.sender == recipient.username %}
     <div class="recipient-messages">
         <!-- <h6>{{message.sender}}</h6> -->
-        <h3>{{message.message_text}}</h3>
+        <h3 class="message-text">{{message.message_text}}</h3>
     </div>
     {% endif %}
     {% endfor %}

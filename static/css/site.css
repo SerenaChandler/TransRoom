@@ -20,9 +20,9 @@
   width: 25%;
   height: 5%;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 39%;
   margin-top: 10px;
-  margin-left: 50%;
+  text-align: left;
 }
 
 .recipient-messages, .message-button {
@@ -37,7 +37,12 @@
 
 .recipient-messages{
   margin-left: auto;
-  margin-right: 50%;
+  margin-right: 41%;
+  text-align: left;
+}
+
+.message-text{
+  margin-left: 10%;
 }
 
 #navbar {
