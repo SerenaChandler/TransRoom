@@ -7,6 +7,7 @@ const hideCommentsButton = document.querySelectorAll(
 );
 
 const messageButton = document.querySelector("#message-form");
+const messageInput = document.querySelector("#message-input")
 
 function leaveComment(evt) {
   evt.preventDefault();
@@ -104,7 +105,13 @@ function leaveMessage(evt) {
       },
     })
       .then((res) => res.json())
-      .then((data) => location.reload());
+      .then((data) => {
+        
+        location.reload()
+        messageInput.value = ""
+        
+      
+      });
   } else {
     console.log("no message");
   }

@@ -7,7 +7,7 @@
 
 <h2>Messaging: {{recipient.username}} </h2>
 <form id="message-form" action="/send/message/{{recipient.user_id}}">
-    <input type="text" name="message">
+    <input id="message-input" type="text" name="message">
     <input class="search-button" id="{{recipient.user_id}}" type="submit" value="Send Message">
     
 </form>
