@@ -24,10 +24,9 @@ class ServerTestsLogin(unittest.TestCase):
         result = self.client.get("/user")
         self.assertIn(b"Your comments", result.data)
 
-    # def test_login_page(self):
-    #     result = self.client.get("/login")
-    #     self.assertIn(b"Create an", result.data)
-
+    def test_bowlmates(self):
+        result = self.client.get("/bowlmates")
+        self.assertIn(b"Welcome", result.data)
    
 
 
@@ -46,9 +45,7 @@ class ServerTestsLogout(unittest.TestCase):
         result = self.client.get("/login")
         self.assertIn(b"Create an", result.data)
 
-    # def test_user_profile(self):
-    #     result = self.client.get("/user")
-    #     self.assertIn(b"Your comments", result.data)
+
 
 
 

@@ -4,8 +4,9 @@
 
 
 {% block body %}
+<div class="user-info">
 
-<div>
+<div class="user-info-box">
     <h1>Following</h1>
     {% for user in user.following %}
     <div class="comment-box">
@@ -23,7 +24,7 @@
 </div>
 
 
-<div>
+<div class="user-info-box">
     <h1>Followers</h1>
     {% for user in user.followers %}
     <div class="comment-box">
@@ -39,7 +40,7 @@
 </div>
 
 
-<div>
+<div class="user-info-box">
     <h1>Your comments will show up here!</h1>
     {% for comment in user.comments %}
     <div class="comment-box">
@@ -54,5 +55,7 @@
     </div>
     </ul>
     {% endfor %}
+</div>
+
 </div>
 {% endblock %}

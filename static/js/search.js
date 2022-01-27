@@ -6,7 +6,7 @@ const hideCommentsButton = document.querySelectorAll(
   "#hide-comment-button-form"
 );
 
-const messageButton = document.querySelector("#message-form")
+const messageButton = document.querySelector("#message-form");
 
 function leaveComment(evt) {
   evt.preventDefault();
@@ -87,15 +87,13 @@ for (button of hideCommentsButton) {
   button.addEventListener("submit", hideComments);
 }
 
-
-
 function leaveMessage(evt) {
-  evt.preventDefault()
-  const text = evt.target[0].value
-  const recipient = evt.target[1].id
+  evt.preventDefault();
+  const text = evt.target[0].value;
+  const recipient = evt.target[1].id;
 
   const formInputs = {
-    text: evt.target[0].value
+    text: evt.target[0].value,
   };
   if (text != "") {
     fetch(`/send/message/${recipient}`, {
@@ -106,12 +104,10 @@ function leaveMessage(evt) {
       },
     })
       .then((res) => res.json())
-      .then(data => location.reload())
+      .then((data) => location.reload());
   } else {
-  console.log('no message')
+    console.log("no message");
   }
-
-
 }
 
-messageButton.addEventListener("submit", leaveMessage)
+messageButton.addEventListener("submit", leaveMessage);

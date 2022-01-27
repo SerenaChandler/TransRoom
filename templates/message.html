@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Messagin: {{recipient.username}}{% endblock %}
+{% block title %}Messaging: {{recipient.username}}{% endblock %}
 
 
 {% block body %}
 
+<h2>Messaging: {{recipient.username}} </h2>
 <form id="message-form" action="/send/message/{{recipient.user_id}}">
     <input type="text" name="message">
     <input class="search-button" id="{{recipient.user_id}}" type="submit" value="Send Message">
+    
 </form>
+
 
 
 <ul id="messages">
@@ -16,14 +19,14 @@
 
     {% if message.sender == user.username %}
     <div class="my-messages">
-        <h4>{{message.sender}}</h4>
+        <!-- <h6>{{message.sender}}</h6> -->
         <h3>{{message.message_text}}</h3>
     </div>
     {% endif %}
 
     {% if message.sender == recipient.username %}
     <div class="recipient-messages">
-        <h4>{{message.sender}}</h4>
+        <!-- <h6>{{message.sender}}</h6> -->
         <h3>{{message.message_text}}</h3>
     </div>
     {% endif %}

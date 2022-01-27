@@ -22,7 +22,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
-  
+  margin-left: 50%;
 }
 
 .recipient-messages, .message-button {
@@ -31,11 +31,13 @@
   border-radius: 20px;
   width: 25%;
   height: 5%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  
 
+  margin-top: 10px;
+}
+
+.recipient-messages{
+  margin-left: auto;
+  margin-right: 50%;
 }
 
 #navbar {
@@ -171,6 +173,16 @@
   padding-top: 20px;
   padding-bottom: 20px;
   width: 25%;
+}
+
+.user-info{
+  /* border: solid black 3px;
+  padding-bottom: 5px; */
+}
+
+.user-info-box{
+  /* border: solid black 3px;
+  width: 30%; */
 }
 
 #flag {
