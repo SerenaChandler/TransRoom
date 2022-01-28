@@ -6,7 +6,8 @@
 
 
 {% block body %}
-<ul id="messages" ></ul>
+
+<ul id="messages"></ul>
 <h1>search for a restroom!</h1>
 <form action="/handle-search" id="search-form">
     <p style="display: inline;">
@@ -46,6 +47,8 @@
                 in
                 google maps
             </a></h4>
+
+            <div><canvas id="myChart"></canvas></div>
         {% if user %}
         <form class="comment-form" id="comment-form-id{{searched_restroom.restroom_id}}" method="POST">
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
@@ -78,5 +81,5 @@
 </div>
 {% endfor %}
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 {% endblock %}

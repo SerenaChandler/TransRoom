@@ -22,7 +22,7 @@ class ServerTestsLogin(unittest.TestCase):
 
     def test_user_profile(self):
         result = self.client.get("/user")
-        self.assertIn(b"Your comments", result.data)
+        self.assertIn(b"Comments", result.data)
 
     def test_bowlmates(self):
         result = self.client.get("/bowlmates")

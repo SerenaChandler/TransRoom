@@ -62,7 +62,7 @@ function App() {
 }
 
 function MatchButton(props) {
-  return <button id="find-friends" onClick={props.seeFriends}>Find Your Bowlmate</button>;
+  return <button id="find-friends" onClick={props.seeFriends}>Find Your Bowlmates</button>;
 }
 
 ReactDOM.render(<App />, document.querySelector("#ReactApp"));

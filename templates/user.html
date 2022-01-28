@@ -4,7 +4,7 @@
 
 
 {% block body %}
-<h1>{{user.username}}'s User Page</h1>
+<h2>{{user.username}}'s User Page</h2>
 <div class="user-info">
 
 <div class="user-info-box">
@@ -42,7 +42,7 @@
 
 
 <div class="user-info-box">
-    <h1>Your comments will show up here!</h1>
+    <h1>Comments</h1>
     {% for comment in user.comments %}
     <div class="comment-box">
         <h5>{{comment.restroom.restaurant_name}}</h5>

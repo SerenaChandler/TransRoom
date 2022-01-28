@@ -118,3 +118,5 @@ function leaveMessage(evt) {
 }
 
 messageButton.addEventListener("submit", leaveMessage);
+
+console.log('hello!')
