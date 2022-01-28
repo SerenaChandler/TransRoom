@@ -1,34 +1,32 @@
-const labels = ["January", "February", "March", "April", "May", "June"];
-
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: "rgb(255, 99, 132)",
-      borderColor: "rgb(255, 99, 132)",
-      data: [0, 10, 5, 2, 20, 30, 45],
-    },
-  ],
-};
-
-const config = {
-  type: "pie",
-  data: data,
-  options: {
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-};
-
-// const myChart = new Chart(document.querySelector("myChart"), config);
-
-const charts = document.querySelectorAll('#myChart')
-
+const charts = document.querySelectorAll("#myChart");
 
 for (let chart of charts) {
-    const newChart = new Chart(chart, config);}
+  const labels = [1, 2, 3, 4, 5];
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "My First dataset",
+        backgroundColor: [
+          "rgb(255, 255, 255)",
+          "rgb(255, 224, 251)",
+          "rgb(179, 246, 255",
+          "rgb(255, 224, 251)",
+          "rgb(179, 246, 255)",
+        ],
+        data: [0, 0, 2, 20, 30],
+      },
+    ],
+  };
+
+  const config = {
+    type: "pie",
+    data: data,
+    options: {
+      maintainAspectRatio: false,
+    },
+  };
+
+  newChart = new Chart(chart, config);
+}

@@ -76,15 +76,15 @@ function hideComments(evt) {
   commentList.innerHTML = "";
 }
 
-for (button of commentButtons) {
+for (let button of commentButtons) {
   button.addEventListener("submit", leaveComment);
 }
 
-for (button of showCommentButton) {
+for (let button of showCommentButton) {
   button.addEventListener("submit", showComments);
 }
 
-for (button of hideCommentsButton) {
+for (let button of hideCommentsButton) {
   button.addEventListener("submit", hideComments);
 }
 

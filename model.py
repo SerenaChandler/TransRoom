@@ -100,9 +100,6 @@ class Message(db.Model):
     message_text = db.Column(db.String(), nullable=False)
     recipient = db.Column(db.String(), nullable=False)
     sender = db.Column(db.String(), nullable=False)
-    # sender_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-
-    # sender = db.relationship("User", backref="messages")
 
     def __repr__(self):
         return f"""<Message message_id={self.message_id} 
