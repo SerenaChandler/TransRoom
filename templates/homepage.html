@@ -48,7 +48,7 @@
                 google maps
             </a></h4>
 
-            <div><canvas style="margin-right: 50%;" id="myChart"></canvas></div>
+        
         {% if user %}
         <form class="comment-form" id="comment-form-id{{searched_restroom.restroom_id}}" method="POST">
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
@@ -64,7 +64,9 @@
         </form>
         {% endif %}
 
-        <form style="display: inline;" id="comment-button-form" action="/restroom/{{searched_restroom.restroom_id}}">
+
+
+        <form style="display: inline ;" id="comment-button-form" action="/restroom/{{searched_restroom.restroom_id}}">
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
             <input id="comments-button" value=" Show Comments" type="submit">
         </form>
@@ -73,6 +75,18 @@
             <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
             <input id="comments-button" value="Hide Comments" type="submit">
         </form>
+
+        <form style="display: inline;" id="show-chart-form">
+            <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
+            <input id="comments-button" type="submit" value="show chart">
+        </form>
+        
+        <form style="display: inline;" id="hide-chart-form">
+            <input id="hidden-restroom-id" value="{{searched_restroom.restroom_id}}" type="hidden">
+            <input id="comments-button" type="submit" value="hide chart">
+        </form>
+
+        <div id="chart-container{{searched_restroom.restroom_id}}"></div>
 
         <ul id="comment-list{{searched_restroom.restroom_id}}">
 

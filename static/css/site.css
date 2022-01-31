@@ -8,7 +8,7 @@
   background-color: rgb(220, 250, 255);
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 25%;
+  width: 50%;
 }
 
 
@@ -70,7 +70,7 @@
 #delete-comment-button {
   border-radius: 5px;
   border: solid black 2px;
-  width: 25%;
+  width: 20%;
   margin-top: 10px;
   text-align: center;
   background-color: rgb(255, 240, 255);

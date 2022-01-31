@@ -258,6 +258,26 @@ def add_restroom():
  
     return redirect("/add")
 
+@app.route('/chart-data/<restroom_id>')
+def get_chart_data(restroom_id):
+    restroom = crud.get_restroom_by_id(restroom_id)
+    ratings = [0,0,0,0,0]
+    for comment in restroom.comments:
+        print(comment.rating)
+        if comment.rating == 1:
+            ratings[0] +=1
+        elif comment.rating == 2:
+            ratings[1] +=1
+        elif comment.rating == 3:
+            ratings[2] +=1
+        elif comment.rating == 4:
+            ratings[3] +=1
+        elif comment.rating == 5:
+            ratings[4] +=1
+    print(ratings)
+
+
+    return jsonify(ratings)
 
 
 @app.route("/handle-search")
@@ -321,7 +341,6 @@ def search_handler():
     data['scores'] = restroom_scores
     data['user'] = user
     print("\n", "*"*20, data,"\n")
-    # return json.dumps(searched_restrooms)
     return render_template("homepage.html", searched_restrooms=searched_restrooms,user=user, restroom_scores=restroom_scores)
 
 
