@@ -24,9 +24,9 @@ function getChartData(evt) {
     labels: labels,
     datasets: [
       {
-        label: "My First dataset",
+        label: "Restroom Ratings",
         backgroundColor: [
-          "rgb(255, 255, 255)",
+          "rgb(179, 246, 255)",
           "rgb(255, 224, 251)",
           "rgb(179, 246, 255",
           "rgb(255, 224, 251)",
@@ -38,7 +38,7 @@ function getChartData(evt) {
   };
 
   const config = {
-    type: "pie",
+    type: "bar",
     data: data,
     options: {
       maintainAspectRatio: false,
