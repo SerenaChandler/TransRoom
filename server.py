@@ -41,7 +41,6 @@ def homepage():
     user = None
     if session.get("user_id"):
         user = crud.get_user_by_id(session["user_id"])
-    # return render_template("index.html", user=user)
     return render_template("homepage.html", restrooms=restrooms, searched_restrooms=restrooms)
 
 

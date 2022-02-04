@@ -9,12 +9,14 @@ class ServerTestsLogin(unittest.TestCase):
 
     def setUp(self):
         self.client = app.test_client()
+        connect_to_db(app, echo=False)
         app.config['TESTING'] = True
-        
+        app.config['SECRET_KEY'] = 'key'
 
         with self.client as c:
             with c.session_transaction() as sess:
-                sess["user_id"] = True
+                sess["user_id"] = 1
+
 
     def test_homepage(self):
         result = self.client.get("/")
