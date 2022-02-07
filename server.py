@@ -154,7 +154,7 @@ def logout():
         session.clear()
         flash("successfully logged out.")
     else:
-        flash("Already logged out")
+        flash("You're already logged out")
     return redirect("/")
 
 
