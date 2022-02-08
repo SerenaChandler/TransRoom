@@ -151,12 +151,12 @@
 
 .button:hover {
   cursor: pointer;
-  background-color: rgb(255, 223, 255);
+  background-color: rgb(255, 225, 197);
 }
 
 .button:active {
   cursor: pointer;
-  background-color: rgb(255, 203, 255);
+  background-color: rgb(255, 213, 179);
 }
 .comments {
   border: black solid 2px;

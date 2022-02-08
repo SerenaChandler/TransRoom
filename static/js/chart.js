@@ -26,11 +26,11 @@ function getChartData(evt) {
           {
             label: "Restroom Ratings",
             backgroundColor: [
-              "rgb(179, 246, 255)",
-              "rgb(255, 224, 251)",
-              "rgb(179, 246, 255",
-              "rgb(255, 224, 251)",
-              "rgb(179, 246, 255)",
+              "#D62800",
+              "#FF9B56",
+              "#FFFFFF",
+              "#D452A6",
+              "#A40062",
             ],
             data: chartData,
           },
